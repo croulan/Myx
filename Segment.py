@@ -4,6 +4,10 @@
 # Each segment must know their weighted index in the system as well as their
 # name/placement.
 #
+# The weight of a segment specifies the relative postition of the platform where
+# weight value of 1 assumes platform is right of segment and weight value of -1
+# assumes platform is left of segment.
+#
 ##
 
 class Segment: 

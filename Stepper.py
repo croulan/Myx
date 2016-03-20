@@ -43,7 +43,7 @@ gpio.setwarnings(False) # temp, find a way to safely disable gpio later
 
 
 class Stepper:
-    delay = 2   # default 2 millisecond delay
+    delay = 2.0/1000   # default 2 millisecond delay
 
     """docstring for Stepper"""
     def __init__(self):
@@ -76,30 +76,30 @@ class Stepper:
     # move_Right (float delay, int steps)
     # delay = amount of time delay in miliseconds
     # steps = amount of integer steps to take
-    def move_Right(steps):
+    def move_Right(self, steps):
         for i in range(0,steps):
-            Stepper.setStep(1,0,1,0)
-            time.sleep(delay)
+            setStep(1,0,1,0)
+            time.sleep(self.delay)
             setStep(0,1,1,0)
-            time.sleep(delay)
+            time.sleep(self.delay)
             setStep(0,1,0,1)
-            time.sleep(delay)
-            self.setStep(1,0,0,1)
-            time.sleep(delay)
+            time.sleep(self.delay)
+            setStep(1,0,0,1)
+            time.sleep(self.delay)
 
     # move_Left (float delay, int steps)
     # delay = amount of time delay in milliseconds
     # steps = amount of integer steps to take
-    def move_Left(delay, steps):
+    def move_Left(self, steps):
         for i in range(0, steps):
-            self.setStep(1,0,0,1)
-            time.sleep(delay)
-            self.setStep(0,1,0,1)
-            time.sleep(delay)
-            self.setStep(0,1,1,0)
-            time.sleep(delay)
-            self.setStep(1,0,1,0)
-            time.sleep(delay)
+            setStep(1,0,0,1)
+            time.sleep(self.delay)
+            setStep(0,1,0,1)
+            time.sleep(self.delay)
+            setStep(0,1,1,0)
+            time.sleep(self.delay)
+            setStep(1,0,1,0)
+            time.sleep(self.delay)
 
     # Map stepper coils to pin output signals
 def setStep(w1,w2,w3,w4):

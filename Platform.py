@@ -1,4 +1,4 @@
-#from Stepper import Stepper
+from Stepper import Stepper
 from Segment import Segment 
 from math import ceil
 
@@ -12,7 +12,7 @@ from math import ceil
 
 isTrueMid = False       # assume platform is true middle during creation
 stepsToSegment = 150    # number of steps to get to adjacent segment
-#stepper = Stepper()
+stepper = Stepper()
 numSegments = 8
 segList = [Segment() for i in range(0,numSegments)]   # create an array of segments
 
@@ -28,8 +28,8 @@ def create_segments():
         if i >= numSegments/2:
             segList[i].weight = 1
 
-# move_To_Segment (int weight) 
-# weight = the amount of weight total to get to specific segment
+# move_To_Segment (int weightVal) 
+# weightVal = the amount of weight total to get to specific segment
 def move_To_Segment (weightVal):
 
     # hold the number of steps need to get to that segment
