@@ -12,9 +12,12 @@
 
 class Segment: 
 
-    fillTime = 4       # time in second to refill nozzle
+    # Possibly need fill time here since it is a property unique to nozzles?
+    isBeyond = False
 
     def __init__(self):
         self.weight = -1    # initally assume all segments are left of platform
         self.name = 0       # name 0 indexed
-                            # yup... Thats about it here. :^)
+        self.isMid = False          # Is segment in middle
+        self.isBeginning = False    # Is segment located at beginning
+        self.isEnd = False          # Is segment located at end?

@@ -64,14 +64,14 @@ class Stepper:
         if self.isRounded == True and num%2 == 1:
             print "doing floor()"
             self.isRounded = False
-            return math.floor(num/2)
+            return int(math.floor(num/2))
         elif self.isRounded == False and num%2 == 1:
             print "doing ceil()"
             self.isRounded = True
-            return math.ceil(num/2)
+            return int(math.ceil(num/2))
         else:
-            print "doing nothing"
-            return num/2
+            print "doing nothing" 
+            return int(num/2)
 
     # move_Right (float delay, int steps)
     # delay = amount of time delay in miliseconds
