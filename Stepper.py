@@ -43,7 +43,6 @@ gpio.setwarnings(False) # temp, find a way to safely disable gpio later
 
 
 class Stepper:
-    segment = 8 # number of segments in system
     delay = 2   # default 2 millisecond delay
     
     """docstring for Stepper"""
