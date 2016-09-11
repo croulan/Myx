@@ -20,7 +20,7 @@ gpio.setmode(gpio.BCM)
 #
 ##
 
-    
+
 # Pin mappings are relative to the Pinout of the IC
 # SN754410. Doesn't matter its mapped on PI as long
 # and it maps to IC correctly
@@ -29,7 +29,7 @@ coil_A1_pin = 4		# Pin 2 (1A)
 coil_A2_pin = 17	# Pin 7 (2A)
 coil_B1_pin = 23	# Pin 15 (4A)
 coil_B2_pin = 24 	# Pin 10 (3A)
-    
+
 # Inital GPIO input and output setup
 gpio.setup(enablePin, gpio.OUT)
 gpio.setup(coil_A1_pin, gpio.OUT)
@@ -44,7 +44,7 @@ gpio.setwarnings(False) # temp, find a way to safely disable gpio later
 
 class Stepper:
     delay = 2   # default 2 millisecond delay
-    
+
     """docstring for Stepper"""
     def __init__(self):
         self.segment_distance = 150.0   # default number of steps (3 rotations)
@@ -58,7 +58,7 @@ class Stepper:
     #
     # Used to change the rounding method of stepper. Will toggle either floor()
     # or ceiling() math methods if rounding is nesscesary
-     
+
     def rounding_Switch(self, n):
         num = float(n)     #convert passed number n to a float
         if self.isRounded == True and num%2 == 1:
@@ -76,30 +76,30 @@ class Stepper:
     # move_Right (float delay, int steps)
     # delay = amount of time delay in miliseconds
     # steps = amount of integer steps to take
-    def move_Right(delay, steps):
-    	for i in range(0,steps):
-    		Stepper.setStep(1,0,1,0)
-    		time.sleep(delay)
-    		setStep(0,1,1,0)
-    		time.sleep(delay)
-                setStep(0,1,0,1)
-    		time.sleep(delay)
-    		self.setStep(1,0,0,1)
-    		time.sleep(delay)
+    def move_Right(steps):
+        for i in range(0,steps):
+            Stepper.setStep(1,0,1,0)
+            time.sleep(delay)
+            setStep(0,1,1,0)
+            time.sleep(delay)
+            setStep(0,1,0,1)
+            time.sleep(delay)
+            self.setStep(1,0,0,1)
+            time.sleep(delay)
 
     # move_Left (float delay, int steps)
     # delay = amount of time delay in milliseconds
     # steps = amount of integer steps to take
     def move_Left(delay, steps):
-    	for i in range(0, steps):
-    		self.setStep(1,0,0,1)
-    		time.sleep(delay)
-    		self.setStep(0,1,0,1)
-    		time.sleep(delay)
-    		self.setStep(0,1,1,0)
-    		time.sleep(delay)
-    		self.setStep(1,0,1,0)
-    		time.sleep(delay)
+        for i in range(0, steps):
+            self.setStep(1,0,0,1)
+            time.sleep(delay)
+            self.setStep(0,1,0,1)
+            time.sleep(delay)
+            self.setStep(0,1,1,0)
+            time.sleep(delay)
+            self.setStep(1,0,1,0)
+            time.sleep(delay)
 
     # Map stepper coils to pin output signals
 def setStep(w1,w2,w3,w4):
