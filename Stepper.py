@@ -62,15 +62,12 @@ class Stepper:
     def rounding_Switch(self, n):
         num = float(n)     #convert passed number n to a float
         if self.isRounded == True and num%2 == 1:
-            print "doing floor()"
             self.isRounded = False
             return int(math.floor(num/2))
         elif self.isRounded == False and num%2 == 1:
-            print "doing ceil()"
             self.isRounded = True
             return int(math.ceil(num/2))
         else:
-            print "doing nothing" 
             return int(num/2)
 
     # move_Right (float delay, int steps)

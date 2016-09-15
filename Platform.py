@@ -5,8 +5,8 @@ from math import ceil
 ##
 #
 # The Platform module encapsulates the states of which the platform is in and is
-# aware of the distance between each stepper. It will also be decide the order
-# of the recipe based on either shortest path or order dictated by the user.  
+# aware of the distance between each stepper. It will also decide the order of
+# the recipe based on either shortest path or order dictated by the user.  
 #
 ##
 
@@ -45,28 +45,40 @@ segList[numSegments-1].isEnd = True
 # weightVal.
 def move_To_Segment (weightVal):
 
-    # hold the number of steps need to get to that segment
     stepsTotal = stepsToSegment * weightVal
-    p = find_Platform()
+    platVal = find_Platform()
 
-    # This part is just complete shit but I can't figure out another way to do it
+    # This part is just complete and utter shit but I can't figure out another 
+    # way to do it
     if (weightVal > 0):
-        if (weightVal+p < numSegments):
+        if ((weightVal+platVal) <= numSegments-1):
+            # print "w+p: %r\nnumSeg+1: %r\n" %(weightVal+platVal, numSegments)
             
             # Switch the values of the weights the platform passes
             for i in range(0,weightVal):
-                segList[p+i].weight *= -1
+                segList[platVal+i].weight *= -1
             
-                stepper.move_Right(stepper.rounding_Switch(stepsTotal))
+            stepper.move_Right(stepper.rounding_Switch(stepsTotal))
         else:
             print "MOVE ABORTED: Platform movement out of bounds!"
+            return 
     else:
         s = (weightVal-1)*-1
-        for i in range(1, s):
-            print "p-i:\t%r" % (p-i)
-            segList[p-i].weight *= -1
 
-        stepper.move_Left(stepper.rounding_Switch(-1*stepsTotal))
+        if ((platVal+weightVal) >= 0):
+            # print "p-w: %r\nnumSeg+1: %r\n" %(platVal-weightVal, numSegments)
+
+            # Decerments the index in segList. Note that loop is offset by 1 b/c 
+            # the platform it is under does not need to change sign. 
+            for i in range(1, s):
+                segList[platVal-i].weight *= -1
+
+            stepper.move_Left(stepper.rounding_Switch(-1*stepsTotal))
+        else:
+            print "MOVE ABORTED: Platform movement out of bounds!"
+            return  
+
+
 
 # find_Platform()
 # RETURN integer name of segment
@@ -82,3 +94,5 @@ def print_Segments():
     print "Name\tWeight\tMid?"
     for i in range (0,numSegments): 
         print "%r\t%r\t%r" %(segList[i].name, segList[i].weight, segList[i].isMid)
+
+
