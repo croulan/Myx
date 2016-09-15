@@ -1,4 +1,3 @@
-
 import Platform
 
 s = Platform 

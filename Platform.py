@@ -1,5 +1,6 @@
 from Stepper import Stepper
 from Segment import Segment 
+from Recipe import Recipe
 from math import ceil
 
 ##
@@ -78,8 +79,6 @@ def move_To_Segment (weightVal):
             print "MOVE ABORTED: Platform movement out of bounds!"
             return  
 
-
-
 # find_Platform()
 # RETURN integer name of segment
 #
@@ -90,6 +89,7 @@ def find_Platform():
         if (segList[i].weight == 1):
             return segList[i].name
 
+# print_segments used for debugging purposes
 def print_Segments(): 
     print "Name\tWeight\tMid?"
     for i in range (0,numSegments): 
