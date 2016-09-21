@@ -1,30 +1,14 @@
 import Platform
+from Recipe import Recipe
 
-s = Platform 
-print 'do nothing\n'
-s.print_Segments()
+s = Platform
+r = Recipe() 
+short = []
+short = s.get_Shortest_Path(r)
 
-print '\nmove -2 left'
-s.move_To_Segment(-2)
-s.print_Segments()
+print short
 
-print "\nmove -2 left"
-s.move_To_Segment(-2)
-s.print_Segments()
+short
 
-print "\nmove 1 right"
-s.move_To_Segment(1)
-s.print_Segments()
-
-print "\nmove -1 left"
-s.move_To_Segment(-1)
-s.print_Segments()
-
-print "\nmove -1 left"
-s.move_To_Segment(-1)
-s.print_Segments()
-
-print "\nmove 4 right"
-s.move_To_Segment(4)
-s.print_Segments()
-
+for i in range(0, len(short)): 
+    print "short[%d]: %r" % (i, short[i].name + 1)

@@ -21,3 +21,6 @@ class Segment:
         self.isMid = False          # Is segment in middle
         self.isBeginning = False    # Is segment located at beginning
         self.isEnd = False          # Is segment located at end?
+
+    def __trunc__(self):
+        self.name 

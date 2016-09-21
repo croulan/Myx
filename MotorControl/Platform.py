@@ -11,6 +11,9 @@ from math import ceil
 #
 ##
 
+RIGHT = 1
+LEFT = -1
+
 isTrueMid = False       # assume platform is true middle during creation
 stepsToSegment = 150    # number of steps to get to adjacent segment
 stepper = Stepper()     # create stepper object
@@ -78,6 +81,47 @@ def move_To_Segment (weightVal):
         else:
             print "MOVE ABORTED: Platform movement out of bounds!"
             return  
+
+def get_Shortest_Path(r): 
+    partitionLeft = []
+    partitionRight = []
+
+    # Partition recipe based off of weight
+    for i in range(0, len(r.recipeStack)):
+        if segList[r.recipeStack[i] - 1].weight == RIGHT:
+            #print "segList.[r.recipeStack[%d]].name == %d" % (i, 
+            #segList[r.recipeStack[i]].name)
+            partitionRight.append(segList[r.recipeStack[i] - 1])
+        else:  
+            #print "segList.[r.recipeStack[%d]].name == %d" % (i, 
+            #segList[r.recipeStack[i]].name)
+            partitionLeft.append(segList[r.recipeStack[i] - 1])
+
+    # segment closest to platform must be first in index array
+    partitionLeft.sort(reverse=True)
+    partitionRight.sort()
+
+    partitionLeft
+
+    if (get_Max(partitionLeft) > get_Max(partitionRight)):
+        print "left first"
+        partitionLeft.extend(partitionRight)
+        return partitionLeft
+    else: 
+        partitionRight.extend(partitionLeft)
+        return partitionRight
+
+def get_Max(li):
+    temp = []
+    for i in range(0, len(li)):
+        temp.append(segList[li[i].name-1].name)
+        #print "li[%d]: %r" % (i, li[i].name)
+
+    if (segList[temp[0]].weight == RIGHT): 
+        return max(temp)
+    else:
+        return min(temp)
+
 
 # find_Platform()
 # RETURN integer name of segment
