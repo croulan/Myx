@@ -98,16 +98,14 @@ def get_Shortest_Path(r):
             partitionLeft.append(segList[r.recipeStack[i] - 1])
 
     # segment closest to platform must be first in index array
-    partitionLeft.sort(reverse=True)
     partitionRight.sort()
 
-    partitionLeft
-
-    if (get_Max(partitionLeft) > get_Max(partitionRight)):
-        print "left first"
+    if (get_Max(partitionLeft) < get_Max(partitionRight)):
+        partitionLeft.sort(reverse=True)
         partitionLeft.extend(partitionRight)
         return partitionLeft
     else: 
+        partitionLeft.sort()
         partitionRight.extend(partitionLeft)
         return partitionRight
 
