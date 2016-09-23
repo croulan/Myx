@@ -56,7 +56,6 @@ def move_To_Segment (weightVal):
     # way to do it
     if (weightVal > 0):
         if ((weightVal+platVal) <= numSegments-1):
-            # print "w+p: %r\nnumSeg+1: %r\n" %(weightVal+platVal, numSegments)
             
             # Switch the values of the weights the platform passes
             for i in range(0,weightVal):
@@ -70,7 +69,6 @@ def move_To_Segment (weightVal):
         s = (weightVal-1)*-1
 
         if ((platVal+weightVal) >= 0):
-            # print "p-w: %r\nnumSeg+1: %r\n" %(platVal-weightVal, numSegments)
 
             # Decerments the index in segList. Note that loop is offset by 1 b/c 
             # the platform it is under does not need to change sign. 
@@ -82,40 +80,50 @@ def move_To_Segment (weightVal):
             print "MOVE ABORTED: Platform movement out of bounds!"
             return  
 
+# get_Shortest_Path(r)
+# r = passed Recipe object
+# RETURN: Segment[]  
+#
+# get_Shortest_Path with return a list of segments in the order of the shortest 
+# possible path based of the Recipe Object.
 def get_Shortest_Path(r): 
     partitionLeft = []
     partitionRight = []
 
     # Partition recipe based off of weight
-    for i in range(0, len(r.recipeStack)):
-        if segList[r.recipeStack[i] - 1].weight == RIGHT:
-            #print "segList.[r.recipeStack[%d]].name == %d" % (i, 
-            #segList[r.recipeStack[i]].name)
-            partitionRight.append(segList[r.recipeStack[i] - 1])
+    for ingredient in r.Recipe.recipeStack:
+        if segList[ingredient.segNum - 1].weight == RIGHT:
+            partitionRight.append(ingredient)
         else:  
-            #print "segList.[r.recipeStack[%d]].name == %d" % (i, 
-            #segList[r.recipeStack[i]].name)
-            partitionLeft.append(segList[r.recipeStack[i] - 1])
+            partitionLeft.append(ingredient)
 
-    # segment closest to platform must be first in index array
-    partitionRight.sort()
+    # Sort right partition based off of the segment number
+    partitionRight = sorted(partitionRight, key=lambda ingred: ingred.segNum)
 
     if (get_Max(partitionLeft) < get_Max(partitionRight)):
-        partitionLeft.sort(reverse=True)
+        # segment closest to platform must be first in index array
+        partitionLeft = sorted(partitionLeft, key=lambda ingred: ingred.segNum, 
+                reverse=True)
         partitionLeft.extend(partitionRight)
         return partitionLeft
     else: 
-        partitionLeft.sort()
+        partitionLeft = sorted(partitionLeft, key=lambda ingred: ingred.segNum)
         partitionRight.extend(partitionLeft)
         return partitionRight
 
-def get_Max(li):
-    temp = []
-    for i in range(0, len(li)):
-        temp.append(segList[li[i].name-1].name)
-        #print "li[%d]: %r" % (i, li[i].name)
 
-    if (segList[temp[0]].weight == RIGHT): 
+# get_Max(li) 
+# li = list of integers
+# RETURNS = integer 
+#
+# get_Max returns the farthest distance on the list depending on weight
+def get_Max(recipeList):
+    temp = []
+    
+    for val in recipeList:
+        temp.append(segList[val.segNum - 1].name)
+
+    if (segList[temp[0]].weight == RIGHT):
         return max(temp)
     else:
         return min(temp)

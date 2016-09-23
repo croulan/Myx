@@ -1,14 +1,25 @@
+import Recipe
 import Platform
-from Recipe import Recipe
+from Recipe import Ingredient
 
+sample = "3,2.5,8,5.3,2,12.5,4,1.2,5,3.1"
+
+r = Recipe
+
+r.initilize_Stack(sample)
 s = Platform
-r = Recipe() 
-short = []
+
 short = s.get_Shortest_Path(r)
 
-print short
+print "\nShortest Path: %r" % short
 
-short
+for ingred in short: 
+    print "%r | %r" % (ingred.segNum, ingred.mL)
 
-for i in range(0, len(short)): 
-    print "short[%d]: %r" % (i, short[i].name + 1)
+#for i in range(0, len(r.Recipe.recipeStack)): 
+#    print "recipeStack[%d]: %r | %r" % (i, r.Recipe.recipeStack[i].segNum, r.Recipe.recipeStack[i].mL)
+
+#for ingredient in r.Recipe.recipeStack:
+#    print "%r | %r" % (ingredient.segNum,ingredient.mL)
+
+
