@@ -81,11 +81,11 @@ def move_To_Segment (weightVal):
             return  
 
 # get_Shortest_Path(r)
-# r = passed Recipe object
-# RETURN: Segment[]  
+# r = Recipe.Ingredient[]
+# RETURN: Recipe.Ingredient[]  
 #
-# get_Shortest_Path with return a list of segments in the order of the shortest 
-# possible path based of the Recipe Object.
+# get_Shortest_Path will return Recipe.Ingredient list in the order of the 
+# shortest possible path based of distance from the middle of the platform.
 def get_Shortest_Path(r): 
     partitionLeft = []
     partitionRight = []
@@ -97,7 +97,7 @@ def get_Shortest_Path(r):
         else:  
             partitionLeft.append(ingredient)
 
-    # Sort right partition based off of the segment number
+    # Sort right partition based off of the ingredient number
     partitionRight = sorted(partitionRight, key=lambda ingred: ingred.segNum)
 
     if (get_Max(partitionLeft) < get_Max(partitionRight)):
@@ -113,10 +113,10 @@ def get_Shortest_Path(r):
 
 
 # get_Max(li) 
-# li = list of integers
+# li = Recipe.Ingredient[]
 # RETURNS = integer 
 #
-# get_Max returns the farthest distance on the list depending on weight
+# get_Max returns the farthest distance on the list depending on segment name
 def get_Max(recipeList):
     temp = []
     
