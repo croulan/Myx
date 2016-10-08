@@ -3,13 +3,15 @@ from Segment import Segment
 from Recipe import Recipe
 from math import ceil
 
-##
-#
-# The Platform module encapsulates the states of which the platform is in and is
-# aware of the distance between each stepper. It will also decide the order of
-# the recipe based on either shortest path or order dictated by the user.  
-#
-##
+"""
+File: Platform.py
+Author: Roulan Ceniza
+Github: https://github.com/croulan
+
+The Platform module encapsulates the states of which the platform is in and is
+aware of the distance between each stepper. It will also decide the order of
+the recipe based on either shortest path or order dictated by the user.  
+"""
 
 RIGHT = 1
 LEFT = -1
@@ -41,20 +43,63 @@ else:
 segList[0].isBeginning = True
 segList[numSegments-1].isEnd = True
 
-# move_To_Segment (int weightVal) 
-# weightVal = the amount of weight total to get to specific segment
-#
-# move_To_Segment will move the platform based off the product of weightVal and 
-# stepsToSegment. It will move the platform left or right based off the sign of
-# weightVal.
-def move_To_Segment (weightVal):
+
+"""
+is_Mid()
+RETURN: boolean
+
+is_Mid will check the posistion of the platform to check if it is sitting in 
+true mid.
+"""
+def is_Mid(): 
+    currentPos = find_Platform()
+    
+    if(segList[currentPos].isMid == True and segList[currentPos].weight == 1
+            and segList[currentPos-1].isMid == True and segList[currentPos-1].weight):
+        return True
+    else:
+        return False
+
+
+"""
+move_To_Segment(segName)
+segName = int 
+
+move_To_Segment will move the platform to the specified segment defined by 
+segName
+"""
+def move_To_Segment(segName):
+    currentPos = find_Platform()
+    weightSum = 0
+    
+    # This shit is broken....
+    if (segName > currentPos): 
+        for i in range(currentPos, segName):
+            weightSum += 1
+    else: 
+        for i in range(segName,currentPos-1,-1): 
+            weightSum += -1
+
+    move_By_Weight(weightSum)
+    print_Segments()
+
+
+"""
+move_By_Weight (int weightVal) 
+weightVal = the amount of weight total to get to specific segment
+
+move_By_Weight will move the platform based off the product of weightVal and 
+stepsToSegment. It will move the platform left or right based off the sign of
+weightVal.
+"""
+def move_By_Weight(weightVal):
 
     stepsTotal = stepsToSegment * weightVal
     platVal = find_Platform()
 
     # This part is just complete and utter shit but I can't figure out another 
     # way to do it
-    if (weightVal > 0):
+    if (weightVal > 0):  
         if ((weightVal+platVal) <= numSegments-1):
             
             # Switch the values of the weights the platform passes
@@ -63,7 +108,7 @@ def move_To_Segment (weightVal):
             
             stepper.move_Right(stepper.rounding_Switch(stepsTotal))
         else:
-            print "MOVE ABORTED: Platform movement out of bounds!"
+            print "MOVE ABORTED: Platform movement out of bounds! in IF"
             return 
     else:
         s = (weightVal-1)*-1
@@ -77,15 +122,17 @@ def move_To_Segment (weightVal):
 
             stepper.move_Left(stepper.rounding_Switch(-1*stepsTotal))
         else:
-            print "MOVE ABORTED: Platform movement out of bounds!"
+            print "MOVE ABORTED: Platform movement out of bounds! in ELSE"
             return  
 
-# get_Shortest_Path(r)
-# r = Recipe.Ingredient[]
-# RETURN: Recipe.Ingredient[]  
-#
-# get_Shortest_Path will return Recipe.Ingredient list in the order of the 
-# shortest possible path based of distance from the middle of the platform.
+"""
+get_Shortest_Path(r)
+r = Recipe object
+RETURN: Recipe.Ingredient[]  
+
+get_Shortest_Path will return Recipe.Ingredient list in the order of the 
+shortest possible path based of distance from the middle of the platform.
+"""
 def get_Shortest_Path(r): 
     partitionLeft = []
     partitionRight = []
@@ -111,12 +158,13 @@ def get_Shortest_Path(r):
         partitionRight.extend(partitionLeft)
         return partitionRight
 
+"""
+get_Max(li) 
+li = Recipe.Ingredient[]
+RETURNS = integer 
 
-# get_Max(li) 
-# li = Recipe.Ingredient[]
-# RETURNS = integer 
-#
-# get_Max returns the farthest distance on the list depending on segment name
+get_Max returns the farthest distance on the list depending on segment name
+"""
 def get_Max(recipeList):
     temp = []
     
@@ -128,12 +176,13 @@ def get_Max(recipeList):
     else:
         return min(temp)
 
+"""
+find_Platform()
+RETURN integer name of segment
 
-# find_Platform()
-# RETURN integer name of segment
-#
-# find_Platform will return a segments name on the first occourence of a postive 
-# segment weighted value. 
+find_Platform will return a segments name on the first occourence of a postive 
+segment weighted value. 
+"""
 def find_Platform():  
     for i in range(0, len(segList)):
         if (segList[i].weight == 1):

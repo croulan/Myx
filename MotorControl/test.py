@@ -2,7 +2,7 @@ import Recipe
 import Platform
 from Recipe import Ingredient
 
-sample = "3,2.5,8,5.3,2,12.5,4,1.2,5,3.1"
+sample = "6,2.5,5,5.3,1,12.5,4,1.2,3,3.1"
 
 r = Recipe
 
