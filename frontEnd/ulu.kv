@@ -1,0 +1,42 @@
+#:kivy 1.9.1
+
+<GridBuild>
+	rows: 3
+	spacing: 40
+	padding: 60
+	AnchorLayout:
+		anchor_x: 'left'
+		anchor_y: 'center'
+		canvas:
+			Color:
+				rgb: [1, 0, 0]
+			Rectangle:
+				pos: self.pos
+				size: self.size
+		BoxDesu:
+			size_hint: [None, None]
+			size: [app.x, app.y]
+	AnchorLayout:
+		anchor_x: 'center'
+		anchor_y: 'center'
+		canvas:
+			Color:
+				rgb: [1, 0, 1]
+			Rectangle:
+				pos: self.pos
+				size: self.size
+		BoxDesuwa:
+			size_hint: [None, None]
+			size: [app.x, app.y]
+	AnchorLayout:
+		anchor_x: 'right'
+		anchor_y: 'center'
+		canvas:
+			Color:
+				rgb: [0, 0, 1]
+			Rectangle:
+				pos: self.pos
+				size: self.size
+		BoxDesuka:
+			size_hint: [None, None]
+			size: [app.x, app.y]
