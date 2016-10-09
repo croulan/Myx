@@ -78,7 +78,7 @@ def move_To_Segment(segName):
     else:
         for i in range(currentPos,segName-1,-1): 
             weightSum += segList.[i].weight 
-
+            
     move_By_Weight(weightSum)
     print_Segments()
 
