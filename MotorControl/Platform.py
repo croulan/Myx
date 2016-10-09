@@ -72,13 +72,13 @@ def move_To_Segment(segName):
     currentPos = find_Platform()
     weightSum = 0
     
-    # This shit is broken....
     if (segName > currentPos): 
         for i in range(currentPos, segName):
-            weightSum += 1
-    else: 
-        for i in range(segName,currentPos-1,-1): 
-            weightSum += -1
+            weightSum += segList[i].weight
+    else:
+
+        for i in range(currentPos,segName-1,-1): 
+            weightSum += segList.[i].weight 
 
     move_By_Weight(weightSum)
     print_Segments()
