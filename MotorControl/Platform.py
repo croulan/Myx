@@ -43,15 +43,14 @@ else:
 segList[0].isBeginning = True
 segList[numSegments-1].isEnd = True
 
-
-"""
-is_Mid()
-RETURN: boolean
-
-is_Mid will check the posistion of the platform to check if it is sitting in 
-true mid.
-"""
 def is_Mid(): 
+    """
+    is_Mid()
+    RETURN: boolean
+
+    is_Mid will check the posistion of the platform to check if it is sitting in 
+    true mid.
+    """
     currentPos = find_Platform()
     
     if(segList[currentPos].isMid == True and segList[currentPos].weight == 1
@@ -60,15 +59,14 @@ def is_Mid():
     else:
         return False
 
-
-"""
-move_To_Segment(segName)
-segName = int 
-
-move_To_Segment will move the platform to the specified segment defined by 
-segName
-"""
 def move_To_Segment(segName):
+    """
+    move_To_Segment(segName)
+    segName = int 
+    move_To_Segment will move the platform to the specified segment defined by 
+    segName
+    """
+
     currentPos = find_Platform()
     weightSum = 0
     
@@ -77,21 +75,21 @@ def move_To_Segment(segName):
             weightSum += segList[i].weight
     else:
         for i in range(currentPos,segName-1,-1): 
-            weightSum += segList.[i].weight 
+            weightSum += segList[i].weight 
             
     move_By_Weight(weightSum)
     print_Segments()
 
 
-"""
-move_By_Weight (int weightVal) 
-weightVal = the amount of weight total to get to specific segment
-
-move_By_Weight will move the platform based off the product of weightVal and 
-stepsToSegment. It will move the platform left or right based off the sign of
-weightVal.
-"""
 def move_By_Weight(weightVal):
+    """
+    move_By_Weight (int weightVal) 
+    weightVal = the amount of weight total to get to specific segment
+
+    move_By_Weight will move the platform based off the product of weightVal and 
+    stepsToSegment. It will move the platform left or right based off the sign 
+    of weightVal.
+    """
 
     stepsTotal = stepsToSegment * weightVal
     platVal = find_Platform()
@@ -124,15 +122,15 @@ def move_By_Weight(weightVal):
             print "MOVE ABORTED: Platform movement out of bounds! in ELSE"
             return  
 
-"""
-get_Shortest_Path(r)
-r = Recipe object
-RETURN: Recipe.Ingredient[]  
-
-get_Shortest_Path will return Recipe.Ingredient list in the order of the 
-shortest possible path based of distance from the middle of the platform.
-"""
 def get_Shortest_Path(r): 
+    """
+    get_Shortest_Path(r)
+    r = Recipe object
+    RETURN: Recipe.Ingredient[]  
+
+    get_Shortest_Path will return Recipe.Ingredient list in the order of the 
+    shortest possible path based of distance from the middle of the platform.
+    """
     partitionLeft = []
     partitionRight = []
 
@@ -157,14 +155,14 @@ def get_Shortest_Path(r):
         partitionRight.extend(partitionLeft)
         return partitionRight
 
-"""
-get_Max(li) 
-li = Recipe.Ingredient[]
-RETURNS = integer 
-
-get_Max returns the farthest distance on the list depending on segment name
-"""
 def get_Max(recipeList):
+    """
+    get_Max(li) 
+    li = Recipe.Ingredient[]
+    RETURNS = integer 
+
+    get_Max returns the farthest distance on the list depending on segment name
+    """
     temp = []
     
     for val in recipeList:
@@ -175,14 +173,15 @@ def get_Max(recipeList):
     else:
         return min(temp)
 
-"""
-find_Platform()
-RETURN integer name of segment
 
-find_Platform will return a segments name on the first occourence of a postive 
-segment weighted value. 
-"""
 def find_Platform():  
+    """
+    find_Platform()
+    RETURN integer name of segment
+
+    find_Platform will return a segments name on the first occourence of a  
+    positive segment weighted value. 
+    """
     for i in range(0, len(segList)):
         if (segList[i].weight == 1):
             return segList[i].name

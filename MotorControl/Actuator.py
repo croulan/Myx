@@ -75,6 +75,7 @@ def actuate_Amt(pin, amt):
     actuate_Amt will repeatedly actuate until the specified recipe amount is 
     poured.
     """
+
     setinal = pourTime[amt]
     while(setinal>0 and (setinal>=pourTime[12.5])): 
         set_Actuator_On(pin)
@@ -96,25 +97,34 @@ def actuate_Amt(pin, amt):
 
 
 def set_Actuator_Off(pin): 
-    """set_Actuator_Off(pin)
+    """
+    set_Actuator_Off(pin)
     pin = int
     set_Actuator_Off will output the state for specified pin as well as give
-    the actuator a current direction from h_in1 --> h_in2"""
+    the actuator a current direction from h_in1 --> h_in2
+    """
+
     gpio.output(h_in1, 0)
     gpio.output(h_in2, 1)
     gpio.output(pin, ON)
 
 def set_Actuator_On(pin): 
-    """set_Actuator_Off(pin)
+    """
+    set_Actuator_Off(pin)
     pin = int
     set_Actuator_Off will output the ON state for specified pin as well as give
-    the actuator a current direction from h_in1 <-- h_in2"""
+    the actuator a current direction from h_in1 <-- h_in2
+    """
+
     gpio.output(h_in1, 1)
     gpio.output(h_in2, 0)
     gpio.output(pin, ON)
 
 def set_Idle(pin): 
-    """set_Idle(pin)
+    """
+    set_Idle(pin)
     pin = int
-    set_Idle will output the OFF state for specified pin."""
+    set_Idle will output the OFF state for specified pin.
+    """
+
     gpio.output(pin, OFF)
