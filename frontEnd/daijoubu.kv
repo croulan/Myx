@@ -1,0 +1,45 @@
+#:kivy 1.9.1
+
+<Haruna>:						# The screen manager class created in the py file
+	id: screen_manager				# ID for individual screens to reference the manager within this file
+
+	# This links the unassigned objects from screen manager class to custom identifiers
+	# Non-generic IDs used here to separate the object names in the py file from their new handles in this file
+	screen_one: screen_dai
+	screen_two: screen_jou
+	screen_three: screen_bu
+
+	ScreenDai:					# This section links a screen instance to one of the unassigned object and to the manager
+		id: screen_dai				# Connect the ID of an unassigned object to this screen instance
+		name: "DAI"				# Custom display name separate from the ID, used below to switch between screens
+		manager: screen_manager			# Connect the ID of the manager to this screen instance
+
+	ScreenJou:
+		id: screen_jou
+		name: "JOU"
+		manager: screen_manager
+
+	ScreenBu:
+		id: screen_bu
+		name: "BU"
+		manager: screen_manager
+
+<ScreenDai>:								# This is where the screen class is told to do things
+	Button:
+		text: "On screen DAI >> go to screen JOU"
+		on_press:
+			root.manager.current = "JOU"			# Layman's TL: On click, the screen manager of DAI sets the current screen to JOU"
+			root.manager.transition.direction = "left"	# Default transition direction
+
+<ScreenJou>:
+	Button:
+		text: "On screen JOU >> go to screen BU"
+		on_press:
+			root.manager.current = "BU"
+
+<ScreenBu>:
+	Button:
+		text: "On screen BU >> go to screen DAI"
+		on_press:
+			root.manager.current = "DAI"
+			root.manager.transition.direction = "right"
