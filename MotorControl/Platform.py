@@ -11,6 +11,14 @@ Github: https://github.com/croulan
 The Platform module encapsulates the states of which the platform is in and is
 aware of the distance between each stepper. It will also decide the order of
 the recipe based on either shortest path or order dictated by the user.  
+
+METHODS: 
+    def is_Mid()
+    def move_To_Segment(segName)
+    def move_By_Weight(weightVal)
+    def get_Shortest_Path(r) 
+    def find_Platform()  
+    def print_Segments() 
 """
 
 RIGHT = 1
@@ -165,13 +173,16 @@ def get_Max(recipeList):
     """
     temp = []
     
-    for val in recipeList:
-        temp.append(segList[val.segNum - 1].name)
+    if len(temp) > 0:
+        for val in recipeList:
+            temp.append(segList[val.segNum - 1].name)
 
-    if (segList[temp[0]].weight == RIGHT):
-        return max(temp)
+        if (segList[temp[0]].weight == RIGHT):
+            return max(temp)
+        else:
+            return min(temp)
     else:
-        return min(temp)
+        return 0
 
 
 def find_Platform():  

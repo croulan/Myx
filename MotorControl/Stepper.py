@@ -1,5 +1,5 @@
-import gpio
-#import RPi.GPIO as gpio
+#import gpio
+import RPi.GPIO as gpio
 import math
 import time
 
@@ -32,7 +32,7 @@ Stepper wire config:
 	Blue and Yellow wires go together according
 	to the datasheet.
 """
-
+    
 # Pin mappings are relative to the Pinout of the IC
 # SN754410. Doesn't matter its mapped on PI as long
 # and it maps to IC correctly
@@ -54,34 +54,39 @@ gpio.output(enablePin,1)
 gpio.setwarnings(False) # temp, find a way to safely disable gpio later
 
 
+    
+    
+
 class Stepper:
     """
     Controls the functions of the stepper motor for both forward and 
     backwards movement.
     
     METHODS:
-        def rounding_Switch(self, n):
-        def move_Right(self, steps):
-        def move_Left(self, steps):
+        def rounding_Switch(self, n)
+        def move_Right(self, steps)
+        def move_Left(self, steps)
     """
-    delay = 2.0/1000   # default 2 millisecond delay
 
+    delay = 2.0/1000   # default 2 millisecond delay
+    
     def __init__(self):
         self.segment_distance = 150.0   # default number of steps (3 rotations)
         self.isRounded = False
         self.half_segment = self.segment_distance/2# half distance segment
 
-    def rounding_Switch(self, n):
-        """
-        rounding_Switch (float num)
-        num = number evaluated to check if a floor or ceiling calculation is
-        needed.
-        RETURNS floor/ceiling of number
-        
-        Used to change the rounding method of stepper. Will toggle either floor()
-        or ceiling() math methods if rounding is nesscesary
-        """
+    def __del__(self): 
+        print "Stepper has been deleted"
 
+    def rounding_Switch(self, n):
+        #rounding_Switch (float num)
+        #num = number evaluated to check if a floor or ceiling calculation is
+        #needed.
+        #RETURNS floor/ceiling of number
+        #
+        #Used to change the rounding method of stepper. Will toggle either floor()
+        #or ceiling() math methods if rounding is nesscesary
+        
         num = float(n)     #convert passed number n to a float
         if self.isRounded == True and num%2 == 1:
             self.isRounded = False

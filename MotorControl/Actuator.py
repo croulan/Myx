@@ -1,7 +1,7 @@
-import gpio
+#import gpio
 import time
 from math import floor
-#import RPi.GPIO as gpio
+import RPi.GPIO as gpio
 
 """
 File: Actuator.py
@@ -11,6 +11,13 @@ Github: https://github.com/croulan
 Description: Module that descirbes the attribues and properites of all the 
 actuators connected to the Sain Smart Relay board (an 8 array active low relay 
 board.) 
+
+METHODS: 
+    def actuate_Amt(pin, amt) 
+    def set_Actuator_Off(pin) 
+    def set_Actuator_On(pin) 
+    def set_Idle(pin) 
+
 """
 
 gpio.setmode(gpio.BCM)
@@ -100,6 +107,7 @@ def set_Actuator_Off(pin):
     """
     set_Actuator_Off(pin)
     pin = int
+
     set_Actuator_Off will output the state for specified pin as well as give
     the actuator a current direction from h_in1 --> h_in2
     """
@@ -112,6 +120,7 @@ def set_Actuator_On(pin):
     """
     set_Actuator_Off(pin)
     pin = int
+
     set_Actuator_Off will output the ON state for specified pin as well as give
     the actuator a current direction from h_in1 <-- h_in2
     """
@@ -124,6 +133,7 @@ def set_Idle(pin):
     """
     set_Idle(pin)
     pin = int
+
     set_Idle will output the OFF state for specified pin.
     """
 
