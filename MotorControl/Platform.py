@@ -25,7 +25,7 @@ RIGHT = 1
 LEFT = -1
 
 isTrueMid = False       # assume platform is true middle during creation
-stepsToSegment = 150    # number of steps to get to adjacent segment
+stepsToSegment = 350    # number of steps to get to adjacent segment
 stepper = Stepper()     # create stepper object
 numSegments = 8         # declare number of segments in Myx!
 segList = [Segment() for i in range(0,numSegments)] # create an object array 

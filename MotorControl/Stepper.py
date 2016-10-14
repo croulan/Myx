@@ -34,8 +34,8 @@ Stepper wire config:
 """
     
 # Pin mappings are relative to the Pinout of the IC
-# SN754410. Doesn't matter its mapped on PI as long
-# and it maps to IC correctly
+# SN754410. Refeer to datasheet of both the stepper and the SN754410 to make 
+# sure wire pairing are correct.
 enablePin = 18		# Pin 1 (1,2EN)
 coil_A1_pin = 4		# Pin 2 (1A)
 coil_A2_pin = 17	# Pin 7 (2A)
@@ -51,11 +51,7 @@ gpio.setup(coil_B2_pin, gpio.OUT)
 
 # Output GPIO setup
 gpio.output(enablePin,1)
-gpio.setwarnings(False) # temp, find a way to safely disable gpio later
 
-
-    
-    
 
 class Stepper:
     """

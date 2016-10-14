@@ -97,6 +97,7 @@ def actuate_Amt(pin, amt):
         print "sleeing for %f %f" % (pourTime[12.5], setinal) 
         time.sleep(pourTime[12.5])
         set_Actuator_Off(pin)
+        time.sleep(1)
         set_Idle(pin)
 
     print "Finished segment pour"
@@ -115,6 +116,7 @@ def set_Actuator_Off(pin):
     gpio.output(h_in1, 0)
     gpio.output(h_in2, 1)
     gpio.output(pin, ON)
+    time.sleep(.18)
 
 def set_Actuator_On(pin): 
     """
@@ -128,6 +130,7 @@ def set_Actuator_On(pin):
     gpio.output(h_in1, 1)
     gpio.output(h_in2, 0)
     gpio.output(pin, ON)
+    time.sleep(.18)
 
 def set_Idle(pin): 
     """
