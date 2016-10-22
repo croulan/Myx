@@ -82,8 +82,8 @@ def move_To_Segment(segName):
         for i in range(currentPos, segName):
             weightSum += segList[i].weight
     else:
-        for i in range(currentPos,segName-1,-1): 
-            weightSum += segList[i].weight 
+        for i in range(currentPos,segName,-1): 
+            weightSum += -1 # -1 to move platform left  
             
     move_By_Weight(weightSum)
     print_Segments()
@@ -118,9 +118,10 @@ def move_By_Weight(moveVal):
             print "MOVE ABORTED: Platform movement out of bounds! in IF"
             return 
     else:
+        s = (moveVal-1)*-1
 
-        s = (moveVal)*-1
-
+        # Execute if current position of the platform minus the movement val is
+        # greater than 0
         if ((platVal+moveVal) >= 0):
 
             # Decerments the index in segList. Note that loop is offset by 1 b/c 

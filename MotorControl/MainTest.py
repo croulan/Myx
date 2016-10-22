@@ -23,7 +23,7 @@ def main():
     recipe = Recipe
     
     # Step 1: get recipe from user either from onboard gui or android app
-    sampleRecipe = "0,12.5,5,12.5,6,12.5,7,12.5"
+    sampleRecipe = "0,12.5,2,12.5,6,12.5,7,12.5"
 #,5,12.5,6,12.5,7,12.5,8,12.5"
 
     # Step 2: split recipe string to a stack of seperate ingredients
@@ -36,13 +36,13 @@ def main():
     for ingred in recipeOrder: 
         print "Getting %rmL of segment %r" %(ingred.mL, ingred.segNum)
         print "Initiating platform movement"
-        platform.move_To_Segment(platform.segList[ingred.segNum-1].name) #segNum is NOT 0 indexed
+        platform.move_To_Segment(platform.segList[ingred.segNum].name) #segNum is NOT 0 indexed
         
         time.sleep(WAIT) 
 
         # Step 5: once platform reached its mark, pour amount
         print "recipe %r | %r" % (ingred.segNum, ingred.mL)
-        Actuator.actuate_Amt(Actuator.actDict[ingred.segNum - 1], 
+        Actuator.actuate_Amt(Actuator.actDict[ingred.segNum], 
                 ingred.mL)
         time.sleep(WAIT) 
 

@@ -42,7 +42,7 @@ h_in2 = 16;
 # Temporary dict for mapping static times
 # pourTime = {float amt:int seconds }
 pourTime = {
-        12.5:.5,
+        12.5:0.1,
         25.0:2,
         37.5:3.3,
         50.0:4,
@@ -87,7 +87,6 @@ def actuate_Amt(pin, amt):
     setinal = pourTime[amt]
     while(setinal>0 and (setinal>=pourTime[12.5])): 
         set_Actuator_On(pin)
-        print "sleeing for %f %f" % (pourTime[25.0], setinal)
         time.sleep(pourTime[25.0])
         set_Actuator_Off(pin)
         set_Idle(pin)
@@ -95,7 +94,6 @@ def actuate_Amt(pin, amt):
 
     if(floor(setinal) == floor(pourTime[12.5])):
         set_Actuator_On(pin)
-        print "sleeing for %f %f" % (pourTime[12.5], setinal) 
         time.sleep(pourTime[12.5])
         set_Actuator_Off(pin)
         time.sleep(1)
