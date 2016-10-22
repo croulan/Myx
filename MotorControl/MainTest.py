@@ -7,7 +7,7 @@ import math
 import gpio
 
 gpio.setwarnings(False)
-WAIT = .3
+WAIT = .3   #Wait between platform and actuator handoff
 
 """
 File: MainTest.py
@@ -23,8 +23,7 @@ def main():
     recipe = Recipe
     
     # Step 1: get recipe from user either from onboard gui or android app
-    sampleRecipe = "0,12.5,2,12.5,6,12.5,7,12.5"
-#,5,12.5,6,12.5,7,12.5,8,12.5"
+    sampleRecipe = "1,12.5,2,12.5,3,12.5,4,12.5,5,12.5,6,12.5,7,12.5,8,12.5"
 
     # Step 2: split recipe string to a stack of seperate ingredients
     recipe.initilize_Stack(sampleRecipe)
@@ -35,15 +34,13 @@ def main():
     # Step 4: interate over each ingredient then move platform
     for ingred in recipeOrder: 
         print "Getting %rmL of segment %r" %(ingred.mL, ingred.segNum)
-        print "Initiating platform movement"
-        platform.move_To_Segment(platform.segList[ingred.segNum].name) #segNum is NOT 0 indexed
-        
+
+        #segNum is NOT 0 indexed
+        platform.move_To_Segment(platform.segList[ingred.segNum-1].name) 
         time.sleep(WAIT) 
 
         # Step 5: once platform reached its mark, pour amount
-        print "recipe %r | %r" % (ingred.segNum, ingred.mL)
-        Actuator.actuate_Amt(Actuator.actDict[ingred.segNum], 
-                ingred.mL)
+        Actuator.actuate_Amt(Actuator.actDict[ingred.segNum-1], ingred.mL)
         time.sleep(WAIT) 
 
     # Step 6: repeat step 4 till stack is empty
@@ -53,6 +50,7 @@ def main():
 
 if __name__ == "__main__": 
     
+    # House keeping for gpios incase of an interrupt 
     try: 
         main()
     except KeyboardInterrupt: 
