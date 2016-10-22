@@ -8,20 +8,23 @@ body {
     margin: 2em;
 }
 
+.btn-group {
+    margin: 0px 2px 0px 2px;
+    width: 100%
+}
+
 .btn {
+    border-radius: 4px !important;
     size: 50px;
     margin: 2px 2px 2px 2px;
     padding: 20px 23px;
     font-weight: 500; 
+    width:24.5%
 }
 
 .btn:focus, .btn:active:focus, .btn.active:focus {
     outline: 0 none;
 
-}
-
-.btn-primary {
-    color: #ffffff;
 }
 
 .btn-primary:hover, .btn-primary:focus, .btn-primary:active, 

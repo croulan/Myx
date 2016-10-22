@@ -1,4 +1,7 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
 <html>
+
     <head>
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -13,18 +16,15 @@
         integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" 
         crossorigin="anonymous">
 
-
-        <title>Angular QuickStart JS</title>
+        <title>Welcome to Myx!</title>
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <link rel="stylesheet" href="styles.css">
 
         <!-- 1. Load libraries -->
         <!-- IE required polyfill -->
         <script src="node_modules/core-js/client/shim.min.js"></script>
-
         <script src="node_modules/zone.js/dist/zone.js"></script>
         <script src="node_modules/reflect-metadata/Reflect.js"></script>
-
         <script src="node_modules/rxjs/bundles/Rx.js"></script>
         <script src="node_modules/@angular/core/bundles/core.umd.js"></script>
         <script src="node_modules/@angular/common/bundles/common.umd.js"></script>
@@ -46,29 +46,29 @@
         <!-- Include all compiled plugins (below), or include individual files as needed -->
         <script src="js/bootstrap.min.js"></script>
 
-        <div id="button-row-top" class="container">
-            <div class="row">
-                <button type="submit" class="btn btn-primary btn-lg raised">1</button>
-                <button type="submit" class="btn btn-primary btn-lg raised">2</button>
-                <button type="submit" class="btn btn-primary btn-lg raised">3</button>
-                <button type="submit" class="btn btn-primary btn-lg raised">4</button>
-            </div>
-        </div>
+        <div id="top-btn-group"class="btn-group btn-group btn-large ">
+            <a href="#" class="btn btn-primary raised" role="button">1</a>
+            <a href="#" class="btn btn-primary raised" role="button">2</a>
+            <a href="#" class="btn btn-primary raised" role="button">3</a>
+            <a href="#" class="btn btn-primary raised" role="button">4</a>
 
-        <div id="button-row-bottom" class="container">
-            <div class="row">
-                <button type="submit" class="btn btn-primary btn-lg raised">5</button>
-                <button type="submit" class="btn btn-primary btn-lg raised">6</button>
-                <button type="submit" class="btn btn-primary btn-lg raised">7</button>
-                <button type="submit" class="btn btn-primary btn-lg raised">8</button>
-            </div>
         </div>
+        <!-- End of top-btn-group -->
+
+        <div id="bottom-btn-group" class="btn-group btn-large box-shadow raised">
+            <a href="#" class="btn btn-primary raised" role="button">5</a>
+            <a href="#" class="btn btn-primary raised" role="button">6</a>
+            <a href="#" class="btn btn-primary raised" role="button">7</a>
+            <a href="#" class="btn btn-primary raised" role="button">8</a>
+
+        </div>
+        <!-- End of bottom-btn-group -->
 
         <!-- Latest compiled and minified JavaScript -->
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" 
-        integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" 
+            integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" 
         crossorigin="anonymous"></script>
-    </body>
+</body>
 
 </html>
 
