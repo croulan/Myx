@@ -15,7 +15,7 @@ the recipe based on either shortest path or order dictated by the user.
 METHODS: 
     def is_Mid()
     def move_To_Segment(segName)
-    def move_By_Weight(weightVal)
+    def move_By_Weight(moveVal)
     def get_Shortest_Path(r) 
     def find_Platform()  
     def print_Segments() 
@@ -89,26 +89,28 @@ def move_To_Segment(segName):
     print_Segments()
 
 
-def move_By_Weight(weightVal):
+def move_By_Weight(moveVal):
     """
-    move_By_Weight (int weightVal) 
-    weightVal = the amount of weight total to get to specific segment
+    move_By_Weight (int moveVal) 
+    moveVal = the amount of weight total to get to specific segment
 
-    move_By_Weight will move the platform based off the product of weightVal and 
+    move_By_Weight will move the platform based off the product of moveVal and 
     stepsToSegment. It will move the platform left or right based off the sign 
-    of weightVal.
+    of moveVal.
     """
 
-    stepsTotal = stepsToSegment * weightVal
+    stepsTotal = stepsToSegment * moveVal
     platVal = find_Platform()
 
-    # This part is just complete and utter shit but I can't figure out another 
-    # way to do it
-    if (weightVal > 0):  
-        if ((weightVal+platVal) <= numSegments-1):
+    # Moves platform right if moveVal is positive
+    if (moveVal > 0):  
+        
+        # Execute if the current position of the platform plus the movement val
+        # less than the numSegments
+        if ((moveVal+platVal) <= numSegments-1):
             
             # Switch the values of the weights the platform passes
-            for i in range(0,weightVal):
+            for i in range(0,moveVal):
                 segList[platVal+i].weight *= -1
             
             stepper.move_Right(stepper.rounding_Switch(stepsTotal))
@@ -116,9 +118,10 @@ def move_By_Weight(weightVal):
             print "MOVE ABORTED: Platform movement out of bounds! in IF"
             return 
     else:
-        s = (weightVal-1)*-1
 
-        if ((platVal+weightVal) >= 0):
+        s = (moveVal)*-1
+
+        if ((platVal+moveVal) >= 0):
 
             # Decerments the index in segList. Note that loop is offset by 1 b/c 
             # the platform it is under does not need to change sign. 

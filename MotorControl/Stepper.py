@@ -1,5 +1,5 @@
-#import gpio
-import RPi.GPIO as gpio
+#import RPi.GPIO as gpio
+import gpio
 import math
 import time
 

@@ -3,7 +3,8 @@ import Actuator
 import Recipe
 import time
 import math
-import RPi.GPIO as gpio
+#import RPi.GPIO as gpio
+import gpio
 
 gpio.setwarnings(False)
 WAIT = .3
@@ -22,7 +23,7 @@ def main():
     recipe = Recipe
     
     # Step 1: get recipe from user either from onboard gui or android app
-    sampleRecipe = "1,12.5,2,12.5,3,12.5,4,12.5"
+    sampleRecipe = "0,12.5,5,12.5,6,12.5,7,12.5"
 #,5,12.5,6,12.5,7,12.5,8,12.5"
 
     # Step 2: split recipe string to a stack of seperate ingredients
@@ -40,6 +41,7 @@ def main():
         time.sleep(WAIT) 
 
         # Step 5: once platform reached its mark, pour amount
+        print "recipe %r | %r" % (ingred.segNum, ingred.mL)
         Actuator.actuate_Amt(Actuator.actDict[ingred.segNum - 1], 
                 ingred.mL)
         time.sleep(WAIT) 

@@ -14,6 +14,11 @@ class gpio:
 def setmode(a):
     pass
 
+def cleanup():
+    pass
+    """docstring for cleanup"""
+    
+
 def setup(a,b):
     pass 
 
