@@ -1,5 +1,5 @@
 
-The prerequiste installs should be done in reference to **index.html**.Make sure you 
+The prerequiste installs should be done in reference to **index.html**. Make sure you 
 have the latest verison of node.js and npm. Once you are sudo'd run the 
 following commands to get the Myx webapp in running condition. 
     
