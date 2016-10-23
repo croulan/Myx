@@ -1,5 +1,5 @@
 
-The prerequiste installs should be done in reference to index.html.Make sure you 
+The prerequiste installs should be done in reference to **index.html**.Make sure you 
 have the latest verison of node.js and npm. Once you are sudo'd run the 
 following commands to get the Myx webapp in running condition. 
     
@@ -34,8 +34,8 @@ If you're lucky you should also have access to the site with other devices and
 not just the machine hosting the server. 
 
 If everything up to this point worked except you can't get other devices to 
-connect to our host then we need to add a new rule to allow port 3000 to have 
-incoming traffic.
+connect to our host then we need to add a new rule to *allow port 3000 to have 
+incoming traffic.*
 
 Install iptables if you don't already have it:
 
