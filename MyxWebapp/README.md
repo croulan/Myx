@@ -4,6 +4,7 @@ have the latest verison of node.js and npm. Once you are sudo'd run the
 following commands to get the Myx webapp in running condition. 
     
 Firstly run the following command: 
+
     npm install 
 
 This will run through the package.json file and install any missing packages.
@@ -14,10 +15,12 @@ don't have to keep refreshing the browser to see our changes.
     npm install -g browser-sync
 
 Now try starting the the server:
+
     npm start
 
 The localhost should be able to access the server now and you should see  a 
 similar output below: 
+
     ------------------------------------
     Local: http://localhost:3000
     External: http://192.168.0.8:3000
@@ -35,9 +38,11 @@ connect to our host then we need to add a new rule to allow port 3000 to have
 incoming traffic.
 
 Install iptables if you don't already have it:
+
     sudo apt-get install iptables 
 
 and then simply run:
+    
     sudo iptables -I INPUT -p tcp --dport 3000 --syn -j ACCEPT
 
 You should be all set and good to go now! 
