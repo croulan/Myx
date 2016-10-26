@@ -74,6 +74,23 @@ gpio.setup(act8, gpio.OUT)
 gpio.setup(h_in1, gpio.OUT)
 gpio.setup(h_in2, gpio.OUT)
 
+def actuate_Time(pin, t): 
+    """
+    actuate_Amt(pin, t)
+    pin = int 
+    t = float
+
+    actuate will contract the actuator for a given amount of time t.
+    """
+
+    print "time: %r" % t
+    set_Actuator_On(pin)
+    time.sleep(t)
+    set_Actuator_Off(pin)
+    time.sleep(1)
+    set_Idle(pin)
+    print "Finished segment pour"
+
 def actuate_Amt(pin, amt): 
     """
     acuate_Amt(pin, amt)
