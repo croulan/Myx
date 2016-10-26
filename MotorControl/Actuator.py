@@ -74,7 +74,7 @@ gpio.setup(act8, gpio.OUT)
 gpio.setup(h_in1, gpio.OUT)
 gpio.setup(h_in2, gpio.OUT)
 
-def actuate_Time(pin, t): 
+def actuate(pin, t): 
     """
     actuate_Amt(pin, t)
     pin = int 
