@@ -1,8 +1,18 @@
 from Stepper import Stepper
+from time import sleep
 from Segment import Segment 
 from Recipe import Recipe
 from math import ceil
+#import RPi.GPIO as gpio
+import gpio
 
+gpio.setmode(gpio.BCM) 
+
+# Pin mapping for the reset button
+resetButton = 18
+
+# Setup GPIO pin
+gpio.setup(resetButton, gpio.IN, pull_up_down=GPIO.PUD_UP)
 
 class Platform(object):
     """
@@ -28,6 +38,7 @@ class Platform(object):
     RIGHT = 1
     LEFT = -1
 
+    resetToMid = 653        # Number of steps to hard reset back to mid
     offset = 0.0            # Will keep track of the platform offset
     isOffsetAdded = False   # Offset assumed 0 at every start of servicing a recipe
     stepsToSegment = 175    # number of steps to get to adjacent segment
@@ -98,6 +109,27 @@ class Platform(object):
             Platform.stepper.move_Left(steps)
 
         print "Added Halfstep: %r" % Platform.offset 
+
+    def hard_Reset(self): 
+        """
+        hard_Reset() 
+
+        Will move the platform right until the reset button is pressed. Once 
+        pressed will move the platform left into the center of the platform.
+        """
+
+        Platform.stepper.continue_Right()
+
+        while True: 
+            inState = gpio.input(resetButton)
+
+            if not inState: 
+                Platform.stepper.move_Left(resetToMid)
+                time.sleep(0.2)
+                break
+            
+            print "Ready to service recipes!"
+        
 
     def reset(self):
         """
@@ -194,6 +226,9 @@ class Platform(object):
             else:
                 print "MOVE ABORTED: Platform movement out of bounds! in ELSE"
                 return  
+
+    def user_Order(self, r): 
+        pass
 
     def get_Shortest_Path(self,r): 
         """

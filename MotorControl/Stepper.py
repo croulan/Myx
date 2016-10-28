@@ -22,11 +22,11 @@ METHODS:
 
 
 50 steps == full turn
-2 mill seconds minimum delay time before error
+2 mill seconds minimum delay time before stepper jitter
 
-Stepper wire config:
- 	| r - b |
-	| g - y |
+Stepper wire config in terms of the IC SN754410:
+	2 | r - b | 15
+	7 | g - y | 10
 
 	Red and Green wires go together and
 	Blue and Yellow wires go together according
@@ -36,21 +36,21 @@ Stepper wire config:
 # Pin mappings are relative to the Pinout of the IC
 # SN754410. Refeer to datasheet of both the stepper and the SN754410 to make 
 # sure wire pairing are correct.
-enablePin = 18		# Pin 1 (1,2EN)
+#enablePin = 18		# Pin 1 (1,2EN)
 coil_A1_pin = 4		# Pin 2 (1A)
 coil_A2_pin = 17	# Pin 7 (2A)
 coil_B1_pin = 23	# Pin 15 (4A)
 coil_B2_pin = 24 	# Pin 10 (3A)
 
 # Inital GPIO input and output setup
-gpio.setup(enablePin, gpio.OUT)
+#gpio.setup(enablePin, gpio.OUT)
 gpio.setup(coil_A1_pin, gpio.OUT)
 gpio.setup(coil_A2_pin, gpio.OUT)
 gpio.setup(coil_B1_pin, gpio.OUT)
 gpio.setup(coil_B2_pin, gpio.OUT)
 
 # Output GPIO setup
-gpio.output(enablePin,1)
+#gpio.output(enablePin,1)
 
 
 class Stepper:
@@ -62,6 +62,7 @@ class Stepper:
         def rounding_Switch(self, n)
         def move_Right(self, steps)
         def move_Left(self, steps)
+        def continue_Right(self) 
     """
 
     delay = 2.0/1000   # default 2 millisecond delay
@@ -94,11 +95,31 @@ class Stepper:
         else:
             return int(num/2)
 
+    def continue_Right(self): 
+        """
+        continue_Right()
+
+        Turns stepper clockwise indefinitely 
+        """
+        steps = 2000000    # step right indefinitely
+
+        for i in range (0,steps): 
+            setStep(1,0,1,0)
+            time.sleep(self.delay)
+            setStep(0,1,1,0)
+            time.sleep(self.delay)
+            setStep(0,1,0,1)
+            time.sleep(self.delay)
+            setStep(1,0,0,1)
+            time.sleep(self.delay)
+
     def move_Right(self, steps):
         """"
         move_Right (float delay, int steps)
         delay = amount of time delay in miliseconds
         steps = amount of integer steps to take
+
+        Turns stepper in the clockwise direction
         """
 
         steps = int(steps)
@@ -116,9 +137,10 @@ class Stepper:
     def move_Left(self, steps):
         """
         move_Left (float delay, int steps)
-
         delay = amount of time delay in milliseconds
         steps = amount of integer steps to take
+
+        Turns stepper in the counter clockwise direction
         """
 
         steps = int(steps)

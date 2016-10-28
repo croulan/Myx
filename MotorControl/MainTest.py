@@ -19,16 +19,21 @@ without assuming that the user has already inputted the recipe.
 
 def main():
     platform = Platform()
-    recipe = Recipe
+    recipe = Recipe() 
     
+    # Step 0: Preform hard reset to calibrate platform position during startup
+    #platform.hard_Reset()   # Ideally this will be in the __init__ for main
+
     # Step 1: get recipe from user either from onboard gui or android app
-    sampleRecipe = "5,12.5,3,12.5,4,12.5,2,12.5,8,12.5,7,12.5" 
+    sampleRecipe = "5,12.5,4,12.5,7,12.5,6.12.5" 
+#"5,12.5,3,12.5,4,12.5,2,12.5,8,12.5,7,12.5" 
 
     # Step 2: split recipe string to a stack of seperate ingredients
     recipe.initilize_Stack(sampleRecipe)
 
     # Step 3: specify the order of the recipe
-    recipeOrder = platform.get_Shortest_Path(recipe)
+    #recipeOrder = platform.get_Shortest_Path(recipe)
+    recipeOrder = recipe.recipeStack 
     
     # Step 4: interate over each ingredient then move platform
     for ingred in recipeOrder: 

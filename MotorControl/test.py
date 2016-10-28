@@ -1,37 +1,12 @@
+import gpio
+import time
 
-from Platform import Platform
+gpio.setmode(gpio.BCM)
 
-s = Platform() 
+gpio.setup(18, gpio.IN, pull_up_down=gpio.PUD_UP)
 
-print "offset: %r" % s.offset
-
-s.move_Half_Segment(1)
-
-print "offset: %r" % s.offset
-
-s.move_Half_Segment(-1)
-print "offset: %r" % s.offset
-
-s.move_Half_Segment(1)
-
-print "offset: %r" % s.offset
-
-s.move_Half_Segment(-1)
-print "offset: %r" % s.offset
-s.move_Half_Segment(1)
-
-print "offset: %r" % s.offset
-
-s.move_Half_Segment(-1)
-print "offset: %r" % s.offset
-s.move_Half_Segment(1)
-
-print "offset: %r" % s.offset
-
-s.move_Half_Segment(-1)
-print "offset: %r" % s.offset
-
-
-s.reset()
-
-print "offset: %r" % s.offset
+while True:
+    input_state = gpio.input(18)
+    if input_state == False:
+        print('Button Pressed')
+        time.sleep(0.2)
