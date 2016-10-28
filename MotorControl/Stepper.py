@@ -67,6 +67,7 @@ class Stepper:
     delay = 2.0/1000   # default 2 millisecond delay
     
     def __init__(self):
+        print "stepper created"
         self.segment_distance = 150.0   # default number of steps (3 rotations)
         self.isRounded = False
         self.half_segment = self.segment_distance/2# half distance segment
@@ -100,6 +101,8 @@ class Stepper:
         steps = amount of integer steps to take
         """
 
+        steps = int(steps)
+
         for i in range(0,steps):
             setStep(1,0,1,0)
             time.sleep(self.delay)
@@ -117,6 +120,8 @@ class Stepper:
         delay = amount of time delay in milliseconds
         steps = amount of integer steps to take
         """
+
+        steps = int(steps)
 
         for i in range(0, steps):
             setStep(1,0,0,1)
