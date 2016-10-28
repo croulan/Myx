@@ -1,10 +1,10 @@
 from Platform import Platform
+from Recipe import Recipe
 import Actuator
-import Recipe
 import time
 import math
-#import RPi.GPIO as gpio
-import gpio
+import RPi.GPIO as gpio
+#import gpio
 
 WAIT = .3   #Wait between platform and actuator handoff
 
@@ -25,7 +25,7 @@ def main():
     #platform.hard_Reset()   # Ideally this will be in the __init__ for main
 
     # Step 1: get recipe from user either from onboard gui or android app
-    sampleRecipe = "5,12.5,4,12.5,7,12.5,6.12.5" 
+    sampleRecipe = "5,12.5,4,12.5,6,12.5,3,12.5"
 #"5,12.5,3,12.5,4,12.5,2,12.5,8,12.5,7,12.5" 
 
     # Step 2: split recipe string to a stack of seperate ingredients
