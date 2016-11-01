@@ -1,12 +1,7 @@
-import gpio
-import time
 
-gpio.setmode(gpio.BCM)
+from Stepper import Stepper 
 
-gpio.setup(18, gpio.IN, pull_up_down=gpio.PUD_UP)
+s = Stepper()
 
-while True:
-    input_state = gpio.input(18)
-    if input_state == False:
-        print('Button Pressed')
-        time.sleep(0.2)
+s.move_Right(300)
+s.move_Left(300)

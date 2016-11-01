@@ -3,8 +3,8 @@ from time import sleep
 from Segment import Segment 
 from Recipe import Recipe
 from math import ceil
-#import RPi.GPIO as gpio
-import gpio
+import RPi.GPIO as gpio
+#import gpio
 
 gpio.setmode(gpio.BCM) 
 
@@ -12,7 +12,8 @@ gpio.setmode(gpio.BCM)
 resetButton = 18
 
 # Setup GPIO pin
-gpio.setup(resetButton, gpio.IN, pull_up_down=GPIO.PUD_UP)
+# gpio.setup(resetButton, gpio.IN, pull_up_down=gpio.PUD_UP)
+gpio.setup(resetButton, gpio.OUT)
 
 class Platform(object):
     """
@@ -41,7 +42,7 @@ class Platform(object):
     resetToMid = 653        # Number of steps to hard reset back to mid
     offset = 0.0            # Will keep track of the platform offset
     isOffsetAdded = False   # Offset assumed 0 at every start of servicing a recipe
-    stepsToSegment = 175    # number of steps to get to adjacent segment
+    stepsToSegment = 170    # number of steps to get to adjacent segment
     stepper = Stepper()     # create stepper object
     numSegments = 8         # declare number of segments in Myx!
     segList = [Segment() for i in range(0,numSegments)] # create an object array 
@@ -103,6 +104,7 @@ class Platform(object):
             print "Platform | Right Half movement: %d" % (steps)
             Platform.offset += steps
             Platform.stepper.move_Right(steps)
+            print "moved-------------"
         else:
             print "Platform | Left Half movement: %d" % (steps)
             Platform.offset += -steps
@@ -139,10 +141,10 @@ class Platform(object):
         """
         
         # If platform is offset RIGHT heavy
-        if (Platform.offset > 0.0): 
+        if (Platform.offset > 0): 
             Platform.stepper.move_Left(Platform.offset)
         else:
-            Platform.stepper.move_Right(Platform.offset)
+            Platform.stepper.move_Right(-1*Platform.offset)
 
         Platform.offset = 0.0
         Platform.isOffsetAdded = False;
@@ -159,14 +161,15 @@ class Platform(object):
         
         currentPos = self.find_Platform()
         weightSum = 0
-        
+
         if (segName > currentPos): 
             for i in range(currentPos, segName):
                 weightSum += Platform.segList[i].weight
         else:
             for i in range(currentPos,segName,-1): 
                 weightSum += -1 # -1 to move platform left  
-                
+        
+        print "weighted SUM: %r" % weightSum 
         self.move_By_Steps(weightSum)
         self.print_Segments()
 
@@ -191,7 +194,7 @@ class Platform(object):
             print "Now adding half step offset: %r" % stepsTotal
 
         # Moves platform right if moveVal is positive
-        if (moveVal > 0):  
+        if (moveVal >= 0):  
             
             # Execute if the current position of the platform plus the movement val
             # less than the numSegments

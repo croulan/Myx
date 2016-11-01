@@ -1,12 +1,13 @@
 from Platform import Platform
+from Recipe import Recipe
+import lel
 import Actuator
-import Recipe
 import time
 import math
-#import RPi.GPIO as gpio
-import gpio
+import RPi.GPIO as gpio
+#import gpio
 
-WAIT = .3   #Wait between platform and actuator handoff
+WAIT = 1   #Wait between platform and actuator handoff
 
 """
 File: MainTest.py
@@ -25,7 +26,7 @@ def main():
     #platform.hard_Reset()   # Ideally this will be in the __init__ for main
 
     # Step 1: get recipe from user either from onboard gui or android app
-    sampleRecipe = "5,12.5,4,12.5,7,12.5,6.12.5" 
+    sampleRecipe = "1,12.5,4,12.5,3,12.5"
 #"5,12.5,3,12.5,4,12.5,2,12.5,8,12.5,7,12.5" 
 
     # Step 2: split recipe string to a stack of seperate ingredients
@@ -35,6 +36,8 @@ def main():
     #recipeOrder = platform.get_Shortest_Path(recipe)
     recipeOrder = recipe.recipeStack 
     
+    lel.turnOff()
+    time.sleep(.3)
     # Step 4: interate over each ingredient then move platform
     for ingred in recipeOrder: 
         print "Getting %rmL of segment %r" %(ingred.mL, ingred.segNum)
@@ -44,8 +47,13 @@ def main():
         time.sleep(WAIT) 
 
         # Step 5: once platform reached its mark, pour amount
+        
+        lel.turnOn()
+        time.sleep(.3)
         Actuator.actuate_Amt(Actuator.actDict[ingred.segNum-1], ingred.mL)
+        lel.turnOff()
         time.sleep(WAIT) 
+
 
 
     # Step 6: repeat step 4 till stack is empty

@@ -1,8 +1,7 @@
-#import gpio
 import time
 from math import floor
-#import RPi.GPIO as gpio
-import gpio
+import RPi.GPIO as gpio
+#import gpio
 
 """
 File: Actuator.py
@@ -36,8 +35,8 @@ act5 = 6
 act6 = 13
 act7 = 19 
 act8 = 26
-h_in1 = 12; 
-h_in2 = 16; 
+h_in1 = 16; 
+h_in2 = 12; 
 
 # Temporary dict for mapping static times
 # pourTime = {float amt:int seconds }
