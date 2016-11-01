@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+
+<html ng-app="MyxApp">
+
+    <head>
+        <!-- Latest compiled and minified CSS -->
+        <link rel="stylesheet" href="/bootstrap/dist/css/bootstrap.min.css"> 
+        
+        <link rel="stylesheet" href="/bootstrap/dist/css/bootstrap-theme.min.css">
+
+        <!-- Material Design Lite -->
+        <link rel="stylesheet" href="css/material.blue_grey-orange.min.css">
+        <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+
+
+        <title>Myx! Ready to Serve</title>
+        <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+        <link rel="stylesheet" href="css/homepage.css"/>
+
+        <script type="text/javascript" src="/angular/angular.min.js"></script>
+        <script type="text/javascript" src="/jquery/dist/jquery.js"></script>
+        <script type="text/javascript" src="/material-design-lite/material.min.js"></script>
+
+        <script>
+            var app = angular.module('MyxApp', []);
+
+            app.controller("MyxCtrl", function($scope, $http) {
+
+                $scope.submitNewRecipe = function() {
+                    $http.post("/homepage", {newRecipe: $scope.newRecipe}).then(function() {
+                        getRecipes();
+                        $scope.newRecipe = "";
+                    });
+                };
+                
+                $scope.removeRecipe = function(recipe) {
+                    $http.put("/homepage/remove", {recipe: recipe}).then(function() {
+                        getRecipes();
+                    });
+                };
+
+                function getRecipes() {
+                    $http.get('/homepage').then(function (response) {
+                        $scope.recipes = response.data;
+                    });
+                };
+
+                getRecipes();
+
+            });
+        </script>
+
+    </head>
+
+    <body ng-controller="MyxCtrl">
+        <div class="myx-container"> 
+            <h1 class="page-title">Myx!</h1>
+            <div class="myx-feed row feed">
+                <div class="col-md-4">
+                    <h4>Login:</h4>
+                    <input type="text" class="form-control" placeholder="Username" size="30">
+                    <input type="password" class="form-control" placeholder="Password" size="30">
+                </div>
+
+                <div class="col-md-8">
+                    <div class="new-recipe">
+                        <input type="text" class="form-control" placeholder="Say something..."
+                        ng-model="newRecipe">
+                        <button type="button" class="btn" ng-click="submitNewRecipe()">Submit</button>
+                    </div>
+
+                    <h3 ng-repeat="recipe in recipes">
+                        <span class="glyphicon glyphicon-user" aria-hidden="true"></span>
+                        {{ recipe.text }}
+                        <a href ng-click="removeRecipe(recipe)">
+                            <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
+                        </a>
+
+                    </h3>
+                    
+                </div>
+                
+            </div>
+            <!-- End of myx-feed --> 
+            
+        </div>
+        <!-- End of myx-container --> 
+
+
+        <!-- Latest compiled and minified JavaScript -->
+        <script src="/bootstrap/dist/js/bootstrap.min.js"></script>
+    </body>
+
+</html>
