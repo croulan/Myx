@@ -4,13 +4,22 @@
 
     <head>
         <!-- Latest compiled and minified CSS -->
-        <link rel="stylesheet" href="/bootstrap/dist/css/bootstrap.min.css"> 
+        <link rel="stylesheet" href="/bootstrap/dist/css/bootstrap.min.css" 
+        integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" 
+        crossorigin="anonymous"> 
         
-        <link rel="stylesheet" href="/bootstrap/dist/css/bootstrap-theme.min.css">
+        <link rel="stylesheet" href="/bootstrap/dist/css/bootstrap-theme.min.css"
+        integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" 
+        crossorigin="anonymous">
 
         <!-- Material Design Lite -->
         <link rel="stylesheet" href="css/material.blue_grey-orange.min.css">
         <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+
+        <!-- Mobile Compatabilities -->
+        <meta name="mobile-web-app-capable" content="yes" />
+        <meta name="apple-mobile-web-app-capable" content="yes"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 
         <title>Myx! Ready to Serve</title>
@@ -20,6 +29,7 @@
         <script type="text/javascript" src="/angular/angular.min.js"></script>
         <script type="text/javascript" src="/jquery/dist/jquery.js"></script>
         <script type="text/javascript" src="/material-design-lite/material.min.js"></script>
+        <script type="text/javascript" src="/node_modules/angular-animate/angular-animate.min.js"></script>
 
         <script>
             var app = angular.module('MyxApp', []);
@@ -37,6 +47,7 @@
                     $http.put("/homepage/remove", {recipe: recipe}).then(function() {
                         getRecipes();
                     });
+
                 };
 
                 function getRecipes() {
@@ -53,42 +64,78 @@
     </head>
 
     <body ng-controller="MyxCtrl">
-        <div class="myx-container"> 
-            <h1 class="page-title">Myx!</h1>
-            <div class="myx-feed row feed">
-                <div class="col-md-4">
-                    <h4>Login:</h4>
-                    <input type="text" class="form-control" placeholder="Username" size="30">
-                    <input type="password" class="form-control" placeholder="Password" size="30">
-                </div>
+        <div class="mdl-layout__container"> 
 
-                <div class="col-md-8">
+            <h1 class="page-title">Myx!</h1>
+
+            <div class="myx-feed row feed">
+
+                <div class="col-md-12">
                     <div class="new-recipe">
                         <input type="text" class="form-control" placeholder="Say something..."
                         ng-model="newRecipe">
                         <button type="button" class="btn" ng-click="submitNewRecipe()">Submit</button>
                     </div>
 
-                    <h3 ng-repeat="recipe in recipes">
-                        <span class="glyphicon glyphicon-user" aria-hidden="true"></span>
-                        {{ recipe.text }}
-                        <a href ng-click="removeRecipe(recipe)">
-                            <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
-                        </a>
+                    <div class="recipe-list">
 
-                    </h3>
-                    
+                        <div class="recipe-cards" ng-repeat="recipe in recipes">
+                            <div class="mdl-card demo-card-wide mdl-shadow--2dp">
+                                <div class="mdl-card__title">
+                                    <div class="typo-styles__demo mdl-typography--display-2">
+                                        {{ recipe.text }}
+                                    </div>
+                                </div>
+
+                                <div class="mdl-card__supporting-text">
+                                    Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+                                    Mauris sagittis pellentesque lacus eleifend lacinia...
+                                </div>
+                                
+                                <div class="mdl-card__actions mdl-card--border">
+                                    <button class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect">
+                                        Myx! It
+                                    </button>
+                                </div>
+
+                                <div class="mdl-card__menu">
+                                    <button class="mdl-button mdl-button--icon mdl-js-button mdl-js-ripple-effect"
+                                        ng-click="removeRecipe(recipe)">
+                                        
+                                        <i class="material-icons">delete</i>
+                                    </button>
+                                </div>
+                            </div>
+                            <!-- End of mdl-card --> 
+
+                        </div>
+                        <!-- End of recipe-cards -->
+
+                    </div>
+                    <!-- End of recipe-list -->
+
                 </div>
-                
+
             </div>
             <!-- End of myx-feed --> 
-            
+
         </div>
         <!-- End of myx-container --> 
 
+        <button class="mdl-button mdl-js-button mdl-button--fab mdl-js-ripple-effect mdl-button--colored">
+            <i class="material-icons">add</i>
+        </button>
+
+        <script type="text/javascript">
+            $('.mdl-card__menu .mdl-button').on('click', function() {
+
+                    });
+        </script>
 
         <!-- Latest compiled and minified JavaScript -->
-        <script src="/bootstrap/dist/js/bootstrap.min.js"></script>
+        <script src="/bootstrap/dist/js/bootstrap.min.js" 
+            integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" 
+            crossorigin="anonymous"></script>
     </body>
 
 </html>
