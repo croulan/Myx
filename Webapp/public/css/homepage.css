@@ -1,7 +1,8 @@
 
 body {
     overflow-x: hidden;
-    overflow-y: auto;
+    overflow-y: scroll;
+    -webkit-overflow-scrolling: touch !important;
 }
 
 a { 
@@ -73,5 +74,5 @@ a {
 
 .mdl-layout__drawer #help { 
     position: fixed;
-    bottom: 0;
+    bottom: 0px;
 }
