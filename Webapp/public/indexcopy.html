@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+
+<html ng-app="MyxApp">
+
+    <head>
+        <!-- Material Design Lite -->
+        <link rel="stylesheet" href="css/material.blue_grey-orange.min.css">
+        <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+
+        <!-- Mobile Compatabilities -->
+        <meta name="mobile-web-app-capable" content="yes" />
+        <meta name="apple-mobile-web-app-capable" content="yes"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+
+        <title>Myx! Ready to Serve</title>
+        <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+        <link rel="stylesheet" href="css/homepage.css"/>
+        
+        <script type="text/javascript" src="/angular/angular.min.js"></script>
+        <script type="text/javascript" src="/angular-route/angular-route.js"></script>
+        <script type="text/javascript" src="/jquery/dist/jquery.js"></script>
+        <script type="text/javascript" src="/material-design-lite/material.min.js"></script>
+
+        <script type="text/javascript">
+            var app = angular.module('MyxApp', ['ngRoute']);
+    
+            app.config(function($routeProvider, $locationProvider) {
+                $routeProvider
+                .when("/", {
+                    templateUrl: 'html/homepage.html',
+                    controller: 'HomeCtrl'
+                })
+                .when("/createpage", {
+                    templateUrl: 'html/createRecipe.html',
+                    controller: 'RecipeCtrl'
+                });
+            });
+
+            app.controller("HomeCtrl", function($scope, $http) {
+
+                $scope.submitNewRecipe = function() {
+                $http.post("/homepage", {newRecipe: $scope.newRecipe}).then(function() {
+                    //console.log($scope.newRecipe);
+                    console.log("made it to submitNewRecipe");
+                    getRecipes();
+                    $scope.newRecipe = "";
+                    });
+                };
+
+                $scope.removeRecipe = function(recipe) {
+                $http.put("/homepage/remove", {recipe: recipe}).then(function() {
+                    getRecipes();
+                    });
+
+                };
+
+                function getRecipes() {
+                $http.get('/homepage').then(function (response) {
+                    $scope.recipes = response.data;
+                    });
+                };
+
+                getRecipes();
+
+            });
+            
+            app.controller("RecipeCtrl", function($scope, $http) {
+                console.log("made it to create page!");
+                
+            });
+        </script>
+
+    </head>
+
+    <body>
+        <div ng-view></div>
+    </body>
+
+</html>

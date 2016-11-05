@@ -11,7 +11,7 @@
         <meta name="mobile-web-app-capable" content="yes" />
         <meta name="apple-mobile-web-app-capable" content="yes"/>
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        
+
 
         <title>Myx! Ready to Serve</title>
         <meta http-equiv="content-type" content="text/html; charset=utf-8" />
@@ -38,27 +38,27 @@
             });
 
             app.controller("HomeCtrl", function($scope, $http) {
+
                 $scope.submitNewRecipe = function() {
+                $http.post("/homepage", {newRecipe: $scope.newRecipe}).then(function() {
+                    //console.log($scope.newRecipe);
                     console.log("made it to submitNewRecipe");
-                    $http.post("/homepage", {newRecipe: $scope.newRecipe}).then(function() {
-                        //console.log($scope.newRecipe);
-                        console.log("made it to $http submitNewRecipe");
-                        getRecipes();
-                        $scope.newRecipe = "";
+                    getRecipes();
+                    $scope.newRecipe = "";
                     });
                 };
 
                 $scope.removeRecipe = function(recipe) {
-                    $http.put("/homepage/remove", {recipe: recipe}).then(function() {
-                        getRecipes();
-                        });
+                $http.put("/homepage/remove", {recipe: recipe}).then(function() {
+                    getRecipes();
+                    });
 
                 };
 
                 function getRecipes() {
-                    $http.get('/homepage').then(function (response) {
-                        $scope.recipes = response.data;
-                        });
+                $http.get('/homepage').then(function (response) {
+                    $scope.recipes = response.data;
+                    });
                 };
 
                 getRecipes();

@@ -1,38 +1,37 @@
 
 body {
     overflow-x: hidden;
-    overflow-y: scroll;
-    -webkit-overflow-scrolling: touch !important;
+    overflow-y: auto;
 }
 
-a { 
+a {
     text-decoration: none !important;
 }
 
-.main-header { 
-    height: 13%;
+.main-header {
     width: 100%;
 }
 
-.mdl-layout__container { 
+.mdl-layout__container {
     width:100%;
     height:100%;
     position:absolute;
 }
 
 .mdl-layout__content {
+    height:100%;
     background: #f9f9f9;
 }
 
-.myx-feed { 
+.myx-feed {
     margin-top: 47px;
 }
 
-.mdl-button--fab { 
-    position: fixed; 
+.mdl-button--fab {
+    position: fixed;
     right: 0;
     bottom: 0;
-    margin-right: 15px;
+    margin-right: 2.3%;
     margin-bottom: 15px;
     z-index: 999;
 }
@@ -41,7 +40,7 @@ a {
     color: #fff;
 }
 
-.mdl-card { 
+.mdl-card {
     width: 100%;
     margin-bottom: 37px;
 }
@@ -64,15 +63,15 @@ a {
     margin-left: 100px;
 }
 
-.recipe-search--header { 
+.recipe-search--header {
     width: 83%;
 }
 
-.recipe-list { 
+.recipe-list {
     margin: 0px 7% 0 7%;
 }
 
-.mdl-layout__drawer #help { 
+.mdl-layout__drawer #help {
     position: fixed;
     bottom: 0px;
 }

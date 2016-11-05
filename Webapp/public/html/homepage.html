@@ -1,0 +1,41 @@
+<div class="myx-feed row feed">
+    <div class="col-md-12">
+        <div class="recipe-list">
+            <div class="recipe-cards" ng-repeat="recipe in recipes">
+                <div class="mdl-card demo-card-wide mdl-shadow--2dp">
+                    <div class="mdl-card__title">
+                        <div class="typo-styles__demo mdl-typography--display-2">
+                            {{ recipe.text }}
+                        </div>
+                    </div>
+
+                    <div class="mdl-card__supporting-text">
+                        Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+                        Mauris sagittis pellentesque lacus eleifend lacinia...
+                    </div>
+                    
+                    <div class="mdl-card__actions mdl-card--border">
+                        <button class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect">
+                            Myx! It
+                        </button>
+                    </div>
+
+                    <div class="mdl-card__menu">
+                        <button class="mdl-button mdl-button--icon mdl-js-button mdl-js-ripple-effect"
+                            ng-click="removeRecipe(recipe)">
+                            <i class="material-icons">delete</i>
+                        </button>
+                    </div>
+                </div>
+                <!-- End of mdl-card -->
+
+            </div>
+            <!-- End of recipe-cards -->
+
+        </div>
+        <!-- End of recipe-list -->
+
+    </div>
+
+</div>
+<!-- End of myx-feed -->

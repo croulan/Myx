@@ -1,8 +1,8 @@
 {
-  "name": "angular-quickstart",
+  "name": "myx-webapp-quickstart",
   "version": "1.0.0",
   "scripts": {
-    "start": "npm run lite"
+    "start": "node server.js"
   },
   "licenses": [
     {
@@ -12,6 +12,7 @@
   ],
   "dependencies": {
     "angular": "^1.5.8",
+    "angular-route": "^1.5.8",
     "body-parser": "^1.15.2",
     "bootstrap": "^3.3.7",
     "core-js": "^2.4.1",
