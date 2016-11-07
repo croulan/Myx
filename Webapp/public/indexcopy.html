@@ -11,7 +11,7 @@
         <meta name="mobile-web-app-capable" content="yes" />
         <meta name="apple-mobile-web-app-capable" content="yes"/>
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
+        
 
         <title>Myx! Ready to Serve</title>
         <meta http-equiv="content-type" content="text/html; charset=utf-8" />
@@ -22,10 +22,39 @@
         <script type="text/javascript" src="/jquery/dist/jquery.js"></script>
         <script type="text/javascript" src="/material-design-lite/material.min.js"></script>
 
+
         <script type="text/javascript">
-            var app = angular.module('MyxApp', ['ngRoute']);
-    
-            app.config(function($routeProvider, $locationProvider) {
+            var app = angular.module('MyxApp', []);
+            
+            app.controller("HomeCtrl",function($scope, $http) {
+                $scope.submitNewRecipe = function() {
+                    $http.post("/homepage", {newRecipe: $scope.newRecipe}).then(function() {
+                        getRecipes();
+                        $scope.newRecipe = "";
+                        
+                    });
+
+                };
+                
+                $scope.removeRecipe = function(recipe) {
+                    $http.put("/homepage/remove", {recipe: recipe}).then(function() {
+                        getRecipes();
+                    });
+
+                };
+
+                function getRecipes() {
+                    $http.get('/homepage').then(function (response) {
+                        console.log("hefasdgre");
+                        $scope.recipes = response.data;
+                    });
+                };
+
+                getRecipes();
+
+            });
+            
+            /*.config(function($routeProvider, $locationProvider) {
                 $routeProvider
                 .when("/", {
                     templateUrl: 'html/homepage.html',
@@ -35,46 +64,145 @@
                     templateUrl: 'html/createRecipe.html',
                     controller: 'RecipeCtrl'
                 });
-            });
-
-            app.controller("HomeCtrl", function($scope, $http) {
-
-                $scope.submitNewRecipe = function() {
-                $http.post("/homepage", {newRecipe: $scope.newRecipe}).then(function() {
-                    //console.log($scope.newRecipe);
-                    console.log("made it to submitNewRecipe");
-                    getRecipes();
-                    $scope.newRecipe = "";
-                    });
-                };
-
-                $scope.removeRecipe = function(recipe) {
-                $http.put("/homepage/remove", {recipe: recipe}).then(function() {
-                    getRecipes();
-                    });
-
-                };
-
-                function getRecipes() {
-                $http.get('/homepage').then(function (response) {
-                    $scope.recipes = response.data;
-                    });
-                };
-
-                getRecipes();
-
-            });
-            
-            app.controller("RecipeCtrl", function($scope, $http) {
-                console.log("made it to create page!");
                 
+            });*/
+            
+            /*app.controller("HomeCtrl", function($scope, $route, $routeParams, $location) {
+                $scope.$route = $route;
+                $scope.$location = $location;
+                $scope.$routeParams = $routeParams;
+                
+                console.log($location.path());
+                console.log("in asdfasdf");
+                $scope.submitNewRecipe = function() {
+
+                    console.log("in submitNewRecipe");
+                }
+            });*/
+            
+            /*
+            app.controller("RecipeCtrl", function($scope, $http) {
+                
+                $scope.submitNewRecipe = function() {
+                    console.log($scope.newRecipe);
+                    $http.post("/homepage", {newRecipe: $scope.newRecipe}).then(function() {
+                        $scope.newRecipe = "";
+                        
+                    });
+
+                }
+
             });
+            */
+            
         </script>
 
     </head>
 
-    <body>
-        <div ng-view></div>
-    </body>
+    <body ng-controller="HomeCtrl">
+        <div class="mdl-layout__container">
+            <div class="main-header">
+                <div class="mdl-layout mdl-js-layout mdl-layout--fixed-header">
+        
+                    <header class="mdl-layout__header mdl-layout__header--waterfall">
+                        <div class="mdl-layout__header-row">
+                            <!-- Title -->
+                            <span class="mdl-layout-title mdl-cell mdl-cell--hide-phone">Myx!</span>
+                            <!-- Add spacer, to align navigation to the right -->
+                            <div class="mdl-layout-spacer"></div>
+                            
+                            <form action="#/">
+                                <div class="recipe-search--header mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                                    <input class="mdl-textfield__input" rows="2" type="text" ng-model="newRecipe">
+                                    <label class="mdl-textfield__label">Search for a Recipe...</label>
+                                </div>
+                            
+                            
+                                <button class="mdl-button mdl-button--icon mdl-js-button mdl-js-ripple-effect"
+                                    ng-click="submitNewRecipe()">
+                                    <i class="material-icons">search</i>
+                                </button>
+                            </form>
+                            
+                        </div>
+                        
+                    </header>
+                    <!-- End of mdl-layout__header-row -->
+                    
 
+                    <div class="mdl-layout__drawer">
+                        <span class="mdl-layout-title mdl-cell  mdl-cell--hide-phone mdl-cell--12-col">Sort</span>
+                        <span class="mdl-layout-title mdl-cell mdl-cell--hide-desktop mdl-cell--hide-tablet
+                            mdl-cell--12-col">Myx!</span>
+                        <nav class="mdl-navigation">
+                            <a class="mdl-navigation__link" href="">Most Recent</a>
+                            <a class="mdl-navigation__link" href="">Alphabetical</a>
+                            <a class="mdl-navigation__link" href="">Popularity</a>
+                            <a id="help" class="mdl-navigation__link" href="#">
+                                Help
+                                <i class="material-icons">help</i>
+                            </a>
+                        </nav>
+                    </div>
+                    
+                    <main class="mdl-layout__content">
+                    <div class="myx-feed row feed">
+                        <div class="col-md-12">
+                            <div class="recipe-list">
+                                <div class="recipe-cards" ng-repeat="recipe in recipes">
+                                    <div class="mdl-card demo-card-wide mdl-shadow--2dp">
+                                        <div class="mdl-card__title">
+                                            <div class="typo-styles__demo mdl-typography--display-2">
+                                                {{ recipe.text }}
+                                            </div>
+                                        </div>
+                    
+                                        <div class="mdl-card__supporting-text">
+                                            Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+                                            Mauris sagittis pellentesque lacus eleifend lacinia...
+                                        </div>
+                                        
+                                        <div class="mdl-card__actions mdl-card--border">
+                                            <button class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect">
+                                                Myx! It
+                                            </button>
+                                        </div>
+                    
+                                        <div class="mdl-card__menu">
+                                            <button class="mdl-button mdl-button--icon mdl-js-button mdl-js-ripple-effect"
+                                                ng-click="removeRecipe(recipe)">
+                                                <i class="material-icons">delete</i>
+                                            </button>
+                                        </div>
+                                    </div>
+                                    <!-- End of mdl-card -->
+                    
+                                </div>
+                                <!-- End of recipe-cards -->
+                    
+                            </div>
+                            <!-- End of recipe-list -->
+                    
+                        </div>
+                    
+                    </div>
+                    <!-- End of myx-feed -->
+                    </main>
+                    <!-- ng-view Applied here -->
+        
+                </div>
+        
+            </div>
+            <!-- End of main-header -->
+            
+        </div>
+        <!-- End of myx-container -->
+        
+        <a href="html/createRecipe.html" class="mdl-button mdl-js-button mdl-button--fab mdl-js-ripple-effect mdl-button--colored">
+            <i class="material-icons">add</i>
+        </a>
+        
+    </body>
+   
+ 
 </html>

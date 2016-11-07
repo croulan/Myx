@@ -22,9 +22,10 @@
         <script type="text/javascript" src="/jquery/dist/jquery.js"></script>
         <script type="text/javascript" src="/material-design-lite/material.min.js"></script>
 
+
         <script type="text/javascript">
             var app = angular.module('MyxApp', ['ngRoute']);
-    
+
             app.config(function($routeProvider, $locationProvider) {
                 $routeProvider
                 .when("/", {
@@ -35,40 +36,72 @@
                     templateUrl: 'html/createRecipe.html',
                     controller: 'RecipeCtrl'
                 });
+                
             });
 
-            app.controller("HomeCtrl", function($scope, $http) {
-                $scope.submitNewRecipe = function() {
-                    console.log("made it to submitNewRecipe");
-                    $http.post("/homepage", {newRecipe: $scope.newRecipe}).then(function() {
-                        //console.log($scope.newRecipe);
-                        console.log("made it to $http submitNewRecipe");
-                        getRecipes();
-                        $scope.newRecipe = "";
-                    });
-                };
-
+            app.controller("HomeCtrl", function($scope, $route, $routeParams, $location, $http) {
+                $scope.$route = $route;
+                $scope.$location = $location;
+                $scope.$routeParams = $routeParams;
+                
+                console.log($location.path());
+                console.log("in asdfasdf");
+                
                 $scope.removeRecipe = function(recipe) {
                     $http.put("/homepage/remove", {recipe: recipe}).then(function() {
                         getRecipes();
-                        });
+                    });
 
                 };
 
                 function getRecipes() {
                     $http.get('/homepage').then(function (response) {
+                        console.log("hefasdgre");
                         $scope.recipes = response.data;
-                        });
+                    });
+                };
+
+                getRecipes();
+               
+            });
+            
+            app.controller("RecipeCtrl", function($scope, $route, $routeParams, $location, $http) {
+                $scope.$route = $route;
+                $scope.$location = $location;
+                $scope.$routeParams = $routeParams;
+                
+                $scope.submitNewRecipe = function() {
+                    console.log($scope.newRecipe);
+                    $http.post("/homepage", {newRecipe: $scope.newRecipe}).then(function() {
+                        $scope.newRecipe = "";
+                        
+                    });
+
+                }
+
+            });
+                        /*
+            app.controller("HomeCtrl",function($scope, $http) {
+
+                $scope.removeRecipe = function(recipe) {
+                    $http.put("/homepage/remove", {recipe: recipe}).then(function() {
+                        getRecipes();
+                    });
+
+                };
+
+                function getRecipes() {
+                    $http.get('/homepage').then(function (response) {
+                        console.log("hefasdgre");
+                        $scope.recipes = response.data;
+                    });
                 };
 
                 getRecipes();
 
-            });
+            }); */
             
-            app.controller("RecipeCtrl", function($scope, $http) {
-                console.log("made it to create page!");
-                
-            });
+            
         </script>
 
     </head>
@@ -80,29 +113,16 @@
         
                     <header class="mdl-layout__header mdl-layout__header--waterfall">
                         <div class="mdl-layout__header-row">
-            
                             <!-- Title -->
                             <span class="mdl-layout-title mdl-cell mdl-cell--hide-phone">Myx!</span>
                             <!-- Add spacer, to align navigation to the right -->
                             <div class="mdl-layout-spacer"></div>
-            
-                            <form action="#">
-                                <div class="recipe-search--header mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-                                    <input class="mdl-textfield__input" rows="2" type="text" id="sample1" ng-model="newRecipe">
-                                    <label class="mdl-textfield__label" for="sample1">Search for a Recipe...</label>
-                                </div>
-            
-            
-                                <button class="mdl-button mdl-button--icon mdl-js-button mdl-js-ripple-effect"
-                                    ng-click="submitNewRecipe()">
-                                    <i class="material-icons">search</i>
-                                </button>
-                            </form>
-            
                         </div>
+                        
                     </header>
                     <!-- End of mdl-layout__header-row -->
-        
+                    
+
                     <div class="mdl-layout__drawer">
                         <span class="mdl-layout-title mdl-cell  mdl-cell--hide-phone mdl-cell--12-col">Sort</span>
                         <span class="mdl-layout-title mdl-cell mdl-cell--hide-desktop mdl-cell--hide-tablet
@@ -114,7 +134,7 @@
                             <a id="help" class="mdl-navigation__link" href="#">
                                 Help
                                 <i class="material-icons">help</i>
-                        </a>
+                            </a>
                         </nav>
                     </div>
                     
@@ -131,11 +151,11 @@
         </div>
         <!-- End of myx-container -->
         
-        <a href="#/createpage" class="mdl-button mdl-js-button mdl-button--fab mdl-js-ripple-effect mdl-button--colored">
+        <a href="#createpage" class="mdl-button mdl-js-button mdl-button--fab mdl-js-ripple-effect mdl-button--colored">
             <i class="material-icons">add</i>
         </a>
-            
         
     </body>
-
+   
+ 
 </html>

@@ -1,2 +1,16 @@
 
 <h1>Made it to the create page!</h1>
+
+<form action="#/">
+    <div class="recipe-search--header mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+        <input class="mdl-textfield__input" rows="2" type="text" ng-model="newRecipe">
+        <label class="mdl-textfield__label">Search for a Recipe...</label>
+    </div>
+
+
+    <button class="mdl-button mdl-button--icon mdl-js-button mdl-js-ripple-effect"
+        ng-click="submitNewRecipe()" ng-href="#/homepage">
+        <i class="material-icons">search</i>
+    </button>
+</form>
+
