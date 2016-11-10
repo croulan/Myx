@@ -1,0 +1,117 @@
+
+body {
+    overflow-x: hidden;
+    overflow-y: auto;
+}
+
+a {
+    text-decoration: none !important;
+}
+
+.main-header {
+    width: 100%;
+}
+
+.mdl-layout__container {
+    width:100%;
+    height:100%;
+    position:absolute;
+}
+
+.mdl-layout__content
+{
+    height:100%;
+    background: #f9f9f9;
+}
+
+.layout__content-container {
+    max-width: 1100px;
+    position: absolute;
+    margin:auto;
+    left:0;
+    right:0;
+}
+
+.myx-feed {
+    margin-top: 47px;
+}
+
+#homeButton {
+    margin-right:15px;
+}
+
+.mdl-button--fab {
+    position: fixed;
+    right: 0;
+    bottom: 0;
+    margin-right: 2.3%;
+    margin-bottom: 15px;
+    z-index: 999;
+}
+
+.mdl-button--fab i {
+    color: #fff;
+}
+
+.mdl-card {
+    width: 100%;
+    margin-bottom: 37px;
+}
+
+.mdl-card__title {
+    height: 200px;
+    background: url('/assets/images/fireworks1.png') no-repeat center;
+    background-size:cover;
+}
+
+.mdl-card__menu i {
+    color: #fff;
+}
+
+.mdl-card__title .typo-styles__demo {
+    color: #fff;
+}
+
+.mdl-layout__drawer .mdl-navigation__link i {
+    margin-left: 100px;
+}
+
+.recipe-list {
+    margin: 0px 7% 0 7%;
+}
+
+.mdl-layout__drawer #help {
+    position: fixed;
+    bottom: 0px;
+}
+
+/* CSS for createRecipe.html */
+.create-container {
+    max-width: 1100px;
+    position: absolute;
+    margin:auto;
+    left:0;
+    right:0;
+}
+
+.create-container-content {
+    /*margin: 47px 50px 0 50px;*/
+    margin: 47px 7% 0 7%;
+
+}
+
+.create-container i {
+    color:#67696d;
+}
+
+.ordered-toggle {
+    float:right;
+}
+
+.ordered-toggle h5 {
+    position:absolute;
+    margin:auto;
+    padding-top: 2px;
+    right:95px;
+    color:#67696d;
+}

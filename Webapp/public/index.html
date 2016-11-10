@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 
 <html ng-app="MyxApp">
-
+ 
     <head>
         <!-- Material Design Lite -->
         <link rel="stylesheet" href="css/material.blue_grey-orange.min.css">
@@ -15,13 +15,12 @@
 
         <title>Myx! Ready to Serve</title>
         <meta http-equiv="content-type" content="text/html; charset=utf-8" />
-        <link rel="stylesheet" href="css/homepage.css"/>
+        <link rel="stylesheet" href="css/styles.css"/>
         
+        <script type="text/javascript" src="/material-design-lite/material.min.js"></script>
+        <script type="text/javascript" src="/jquery/dist/jquery.js"></script>
         <script type="text/javascript" src="/angular/angular.min.js"></script>
         <script type="text/javascript" src="/angular-route/angular-route.js"></script>
-        <script type="text/javascript" src="/jquery/dist/jquery.js"></script>
-        <script type="text/javascript" src="/material-design-lite/material.min.js"></script>
-
 
         <script type="text/javascript">
             var app = angular.module('MyxApp', ['ngRoute']);
@@ -35,17 +34,17 @@
                 .when("/createpage", {
                     templateUrl: 'html/createRecipe.html',
                     controller: 'RecipeCtrl'
+                })
+                .otherwise({
+                    redirectTo: '/'
                 });
-                
+                                
             });
 
             app.controller("HomeCtrl", function($scope, $route, $routeParams, $location, $http) {
                 $scope.$route = $route;
                 $scope.$location = $location;
                 $scope.$routeParams = $routeParams;
-                
-                console.log($location.path());
-                console.log("in asdfasdf");
                 
                 $scope.removeRecipe = function(recipe) {
                     $http.put("/homepage/remove", {recipe: recipe}).then(function() {
@@ -56,7 +55,6 @@
 
                 function getRecipes() {
                     $http.get('/homepage').then(function (response) {
-                        console.log("hefasdgre");
                         $scope.recipes = response.data;
                     });
                 };
@@ -71,35 +69,14 @@
                 $scope.$routeParams = $routeParams;
                 
                 $scope.submitNewRecipe = function() {
-                    console.log($scope.newRecipe);
                     $http.post("/homepage", {newRecipe: $scope.newRecipe}).then(function() {
                         $scope.newRecipe = "";
                         
                     });
 
-                }
+                };
 
             });
-                        /*
-            app.controller("HomeCtrl",function($scope, $http) {
-
-                $scope.removeRecipe = function(recipe) {
-                    $http.put("/homepage/remove", {recipe: recipe}).then(function() {
-                        getRecipes();
-                    });
-
-                };
-
-                function getRecipes() {
-                    $http.get('/homepage').then(function (response) {
-                        console.log("hefasdgre");
-                        $scope.recipes = response.data;
-                    });
-                };
-
-                getRecipes();
-
-            }); */
             
             
         </script>
@@ -117,6 +94,11 @@
                             <span class="mdl-layout-title mdl-cell mdl-cell--hide-phone">Myx!</span>
                             <!-- Add spacer, to align navigation to the right -->
                             <div class="mdl-layout-spacer"></div>
+                            
+                            <a id="homeButton" class="mdl-button mdl-button--icon mdl-js-button mdl-js-ripple-effect"
+                            href="#/homepage">
+                                <i class="material-icons">home</i>
+                            </a>
                         </div>
                         
                     </header>
@@ -139,7 +121,9 @@
                     </div>
                     
                     <main class="mdl-layout__content">
-                        <div ng-view></div>
+                        <div class="layout__content-container">
+                            <div ng-view></div>
+                        </div>
                     </main>
                     <!-- ng-view Applied here -->
         
@@ -151,11 +135,6 @@
         </div>
         <!-- End of myx-container -->
         
-        <a href="#createpage" class="mdl-button mdl-js-button mdl-button--fab mdl-js-ripple-effect mdl-button--colored">
-            <i class="material-icons">add</i>
-        </a>
-        
     </body>
-   
- 
+    
 </html>

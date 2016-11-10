@@ -1,16 +1,58 @@
+<script type="text/javascript" charset="utf-8">
+    componentHandler.upgradeDom();
+</script>
 
-<h1>Made it to the create page!</h1>
+<div class="create-container">
+    <div class="create-container-content">
+        <div class="ordered-toggle">
+            <h5>Ordered</h5>
+            <label class="mdl-switch mdl-js-switch mdl-js-ripple-effect" for="switch1">
+                <input type="checkbox" id="switch1" class="mdl-switch__input">
+            </label>
+        </div>
+    
+        
+        <form action="#">
+            <div class="recipe-search--header mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                <input class="mdl-textfield__input" rows="5" type="text" ng-model="newRecipe">
+                <label class="mdl-textfield__label">Recipe Name</label>
+            </div>
+            
+              <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label" rows="7">
+                <input class="mdl-textfield__input" type="text" id="desciption" ng-model="description">
+                <label class="mdl-textfield__label" for="desciption">Description...</label>
+              </div>
+            
+            <button class="mdl-button mdl-button--icon mdl-js-button mdl-js-ripple-effect"
+                ng-click="submitNewRecipe()" ng-href="#/">
+                <i class="material-icons">mode_edit</i>
+            </button>
+        </form>
+        
+        <div class="mdl-card demo-card-wide mdl-shadow--2dp">
+            <div class="mdl-card__title">
+                <div class="typo-styles__demo mdl-typography--display-2">
+                    {{ newRecipe }}
+                </div>
+            </div>
 
-<form action="#/">
-    <div class="recipe-search--header mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-        <input class="mdl-textfield__input" rows="2" type="text" ng-model="newRecipe">
-        <label class="mdl-textfield__label">Search for a Recipe...</label>
+            <div class="mdl-card__supporting-text">
+                {{description}}
+            </div>
+            
+            <div class="mdl-card__actions mdl-card--border">
+                <button class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect">
+                    Myx! It
+                </button>
+            </div>
+
+            <div class="mdl-card__menu">
+                <button class="mdl-button mdl-button--icon mdl-js-button mdl-js-ripple-effect">
+                    <i class="material-icons">delete</i>
+                </button>
+            </div>
+        </div>
+    
     </div>
-
-
-    <button class="mdl-button mdl-button--icon mdl-js-button mdl-js-ripple-effect"
-        ng-click="submitNewRecipe()" ng-href="#/homepage">
-        <i class="material-icons">search</i>
-    </button>
-</form>
-
+    
+</div>
