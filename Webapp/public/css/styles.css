@@ -37,7 +37,7 @@ a {
 }
 
 #homeButton {
-    margin-right:15px;
+    margin-right:8px;
 }
 
 .mdl-button--fab {
@@ -97,7 +97,6 @@ a {
 .create-container-content {
     /*margin: 47px 50px 0 50px;*/
     margin: 47px 7% 0 7%;
-
 }
 
 .create-container i {
@@ -114,4 +113,18 @@ a {
     padding-top: 2px;
     right:95px;
     color:#67696d;
+}
+
+.top-button-row button{
+    width:23.5%;
+    margin-left: 0.75%;
+    margin-right: 0.75%;
+    margin-bottom: 15px;
+}
+
+.bottom-button-row > button {
+    width:23.5%;
+    margin-left: 0.75%;
+    margin-right: 0.75%;
+    margin-bottom: 45px;
 }
