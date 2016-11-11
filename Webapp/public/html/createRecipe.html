@@ -1,5 +1,19 @@
 <script type="text/javascript" charset="utf-8">
     componentHandler.upgradeDom();
+    
+    var dialog = document.querySelector('dialog');
+    var showDialogButton = document.querySelector('#show-dialog1');
+    if (! dialog.showModal) {
+      dialogPolyfill.registerDialog(dialog);
+    }
+    
+    showDialogButton.addEventListener('click', function() {
+      dialog.showModal();
+    });
+    
+    dialog.querySelector('.close').addEventListener('click', function() {
+      dialog.close();
+    });
 </script>
 
 <div class="create-container">
@@ -37,7 +51,13 @@
             </div>
 
             <div class="mdl-card__supporting-text">
-                {{description}}
+                <span ng-repeat="ingredient in recipeList">
+                    <span class="mdl-chip mdl-chip--contact mdl-chip--deletable">
+                        <span class="mdl-chip__contact mdl-color--accent mdl-color-text--white">{{ ingredient.segment }}</span>
+                        <span class="mdl-chip__text">Amt: {{ingredient.amount}}</span>
+                        <a class="mdl-chip__action"><i class="material-icons" ng-click="deleteIngredient($index)">cancel</i></a>
+                    </span>
+                </span>
             </div>
             
             <div class="mdl-card__actions mdl-card--border">
@@ -54,19 +74,31 @@
         </div>
         
         <div class="top-button-row mdl-grid mdl-grid--no-spacing">
-            <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent">1</button>
-            <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent">2</button>
-            <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent">3</button>
-            <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent">4</button>
+            <button id="show-dialog1" class="recipe-dialog mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect
+                mdl-button--primary"><strong>1</strong></button>
+            <button id="show-dialog2" class="recipe-dialog mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect
+                mdl-button--primary"><strong>2</strong></button>
+            <button id="show-dialog3" class="recipe-dialog mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect
+                mdl-button--primary"><strong>3</strong></button>
+            <button id="show-dialog4" class="recipe-dialog mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect
+                mdl-button--primary"><strong>4</strong></button>
         </div>
         
         <div class="bottom-button-row mdl-grid mdl-grid--no-spacing">
-            <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent">5</button>
-            <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent">6</button>
-            <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent">7</button>
-            <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent">8</button>
+            <button id="show-dialog5" class="recipe-dialog mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect
+                mdl-button--primary"><strong>5</strong></button>
+            <button id="show-dialog6" class="recipe-dialog mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect
+                mdl-button--primary"><strong>6</strong></button>
+            <button id="show-dialog7" class="recipe-dialog mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect
+                mdl-button--primary"><strong>7</strong></button>
+            <button id="show-dialog8" class="recipe-dialog mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect
+                mdl-button--primary"><strong>8</strong></button>
         </div>
-    
+        
+
+            
     </div>
+    <!-- End of create-container-content -->
     
 </div>
+<!-- End of create-container -->

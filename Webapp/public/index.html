@@ -16,8 +16,10 @@
         <title>Myx! Ready to Serve</title>
         <meta http-equiv="content-type" content="text/html; charset=utf-8" />
         <link rel="stylesheet" href="css/styles.css"/>
+        <link rel="stylesheet" type="text/css" href="/dialog-polyfill/dialog-polyfill.css" />
         
         <script type="text/javascript" src="/material-design-lite/material.min.js"></script>
+        <script type="text/javascript" src="/dialog-polyfill/dialog-polyfill.js"></script>
         <script type="text/javascript" src="/jquery/dist/jquery.js"></script>
         <script type="text/javascript" src="/angular/angular.min.js"></script>
         <script type="text/javascript" src="/angular-route/angular-route.js"></script>
@@ -68,6 +70,22 @@
                 $scope.$location = $location;
                 $scope.$routeParams = $routeParams;
                 
+                $scope.recipeList= [
+                        {segment: 5, amount:4.1},
+                        {segment: 8, amount:8.9},
+                        {segment: 1, amount:5.7}
+                    ];
+                $scope.ingredient = {segment: 4, amount:12.4};
+                $scope.ingredient2 = {segment: 2, amount: 14.2}
+                
+                
+                $scope.recipeList.push($scope.ingredient);
+                $scope.recipeList.push($scope.ingredient2);
+                
+                $scope.deleteIngredient = function (index) {
+                    $scope.recipeList.splice(index,1);
+                };
+                
                 $scope.submitNewRecipe = function() {
                     $http.post("/homepage", {newRecipe: $scope.newRecipe}).then(function() {
                         $scope.newRecipe = "";
@@ -78,7 +96,6 @@
 
             });
             
-            
         </script>
 
     </head>
@@ -87,7 +104,6 @@
         <div class="mdl-layout__container">
             <div class="main-header">
                 <div class="mdl-layout mdl-js-layout mdl-layout--fixed-header">
-        
                     <header class="mdl-layout__header mdl-layout__header--waterfall">
                         <div class="mdl-layout__header-row">
                             <!-- Title -->
@@ -134,6 +150,19 @@
             
         </div>
         <!-- End of myx-container -->
+        
+        <dialog class="mdl-dialog">
+            <h4 class="mdl-dialog__title">Amount in mL: </h4>
+            <div class="mdl-dialog__content">
+                <!-- Default Slider -->
+                <input class="mdl-slider mdl-js-slider" type="range"
+                  min="0" max="100" value="0" tabindex="0">
+            </div>
+            <div class="mdl-dialog__actions">
+              <button type="button" class="mdl-button close">OK</button>
+            </div>
+        </dialog>
+        <!-- End of mdl-dialog -->
         
     </body>
     

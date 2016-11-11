@@ -58,6 +58,11 @@ a {
     margin-bottom: 37px;
 }
 
+.mdl-chip {
+    background: #f5efef;
+    color: #67696d;
+}
+
 .mdl-card__title {
     height: 200px;
     background: url('/assets/images/fireworks1.png') no-repeat center;
@@ -115,16 +120,24 @@ a {
     color:#67696d;
 }
 
-.top-button-row button{
+.top-button-row button {
     width:23.5%;
+    height:60px;
     margin-left: 0.75%;
     margin-right: 0.75%;
     margin-bottom: 15px;
 }
 
-.bottom-button-row > button {
+.bottom-button-row button {
     width:23.5%;
+    height:60px;
     margin-left: 0.75%;
     margin-right: 0.75%;
     margin-bottom: 45px;
+}
+
+dialog {
+  position: fixed;
+  top: 50%;
+  transform: translate(0, -50%);
 }
