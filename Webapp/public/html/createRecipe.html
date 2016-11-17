@@ -1,22 +1,8 @@
-<script type="text/javascript" charset="utf-8">
+<script type="text/javascript">
     componentHandler.upgradeDom();
-    
-    var dialog = document.querySelector('dialog');
-    var showDialogButton = document.querySelector('#show-dialog1');
-    if (! dialog.showModal) {
-      dialogPolyfill.registerDialog(dialog);
-    }
-    
-    showDialogButton.addEventListener('click', function() {
-      dialog.showModal();
-    });
-    
-    dialog.querySelector('.close').addEventListener('click', function() {
-      dialog.close();
-    });
 </script>
 
-<div class="create-container">
+<div id="create-container" class="create-container">
     <div class="create-container-content">
         <div class="ordered-toggle">
             <h5>Ordered</h5>
@@ -73,32 +59,60 @@
             </div>
         </div>
         
-        <div class="top-button-row mdl-grid mdl-grid--no-spacing">
-            <button id="show-dialog1" class="recipe-dialog mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect
-                mdl-button--primary"><strong>1</strong></button>
-            <button id="show-dialog2" class="recipe-dialog mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect
-                mdl-button--primary"><strong>2</strong></button>
-            <button id="show-dialog3" class="recipe-dialog mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect
-                mdl-button--primary"><strong>3</strong></button>
-            <button id="show-dialog4" class="recipe-dialog mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect
-                mdl-button--primary"><strong>4</strong></button>
+        <div>
+            <div class="top-button-row mdl-grid mdl-grid--no-spacing">
+                <button id="show-action1" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect
+                    mdl-button--primary" ng-click="showRecipeAmt($event,1)"><strong>1</strong></button>
+                <button id="show-action2" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect
+                    mdl-button--primary" ng-click="showRecipeAmt($event,2)"><strong>2</strong></button>
+                <button id="show-action3" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect
+                    mdl-button--primary" ng-click="showRecipeAmt($event,3)"><strong>3</strong></button>
+                <button id="show-action4" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect
+                    mdl-button--primary" ng-click="showRecipeAmt($event,4)"><strong>4</strong></button>
+            </div>
+            
+            <div class="bottom-button-row mdl-grid mdl-grid--no-spacing">
+                <button id="show-action5" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect
+                    mdl-button--primary" ng-click="showRecipeAmt($event,5)"><strong>5</strong></button>
+                <button id="show-action6" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect
+                    mdl-button--primary" ng-click="showRecipeAmt($event,6)"><strong>6</strong></button>
+                <button id="show-action7" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect
+                    mdl-button--primary" ng-click="showRecipeAmt($event,7)"><strong>7</strong></button>
+                <button id="show-action8" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect
+                    mdl-button--primary" ng-click="showRecipeAmt($event,8)"><strong>8</strong></button>
+            </div>
         </div>
-        
-        <div class="bottom-button-row mdl-grid mdl-grid--no-spacing">
-            <button id="show-dialog5" class="recipe-dialog mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect
-                mdl-button--primary"><strong>5</strong></button>
-            <button id="show-dialog6" class="recipe-dialog mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect
-                mdl-button--primary"><strong>6</strong></button>
-            <button id="show-dialog7" class="recipe-dialog mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect
-                mdl-button--primary"><strong>7</strong></button>
-            <button id="show-dialog8" class="recipe-dialog mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect
-                mdl-button--primary"><strong>8</strong></button>
-        </div>
-        
 
             
     </div>
     <!-- End of create-container-content -->
     
 </div>
+
+<script type="text/ng-template" id="recipeSlider.html">
+    <md-dialog>
+        <md-toolbar>
+            <div class="md-toolbar-tools">
+                <h2>Amount in mL {{ingredient.amt}}</h2>
+                <span flex></span>
+                
+                <md-button class="md-icon-button" ng-click="cancel()">
+                    <md-icon md-svg-src="img/icons/ic_close_24px.svg" aria-label="Close dialog"></md-icon>
+                </md-button>
+            </div>
+        </md-toolbar>
+
+        <md-dialog-content>
+            <md-slider-container>
+                <div>
+                    <md-slider md-discrete id="recipeSlider" aria-label="Recipe Slider" ng-model="ingredient.amt" step=".1" min="5" max="100"></md-slider>
+                </div>
+            </md-slider-container>
+            <div id="dialogOK">
+                <md-button class="md-primary md-raised" ng-click="answer(ingredient.amt)">OK</md-button>
+            </div>
+        </md-dialog-content>
+       
+    </md-dialog>
+</script>
 <!-- End of create-container -->

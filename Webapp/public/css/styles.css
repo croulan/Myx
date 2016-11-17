@@ -136,8 +136,22 @@ a {
     margin-bottom: 45px;
 }
 
-dialog {
-  position: fixed;
-  top: 50%;
-  transform: translate(0, -50%);
+/* CSS of Recipe Dialog Popup */
+#recipeSlider {
+    width:350px;
+    margin-top: 20px;
+    margin-bottom: 8px;
+}
+
+md-dialog-content {
+    width: 400px;
+    height: 105px;
+}
+
+#dialogOK {
+    position: fixed;
+    margin-top:35px;
+    margin-right:22px;
+    right: 0;
+    bottom: 0;
 }

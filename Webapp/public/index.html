@@ -17,90 +17,23 @@
         <meta http-equiv="content-type" content="text/html; charset=utf-8" />
         <link rel="stylesheet" href="css/styles.css"/>
         <link rel="stylesheet" type="text/css" href="/dialog-polyfill/dialog-polyfill.css" />
+        <link rel="stylesheet" href="css/angular-material.min.css">
         
-        <script type="text/javascript" src="/material-design-lite/material.min.js"></script>
-        <script type="text/javascript" src="/dialog-polyfill/dialog-polyfill.js"></script>
         <script type="text/javascript" src="/jquery/dist/jquery.js"></script>
-        <script type="text/javascript" src="/angular/angular.min.js"></script>
+        <script type="text/javascript" src="/material-design-lite/material.min.js"></script>
+        <script type="text/javascript" src="/angular/angular.js"></script>
         <script type="text/javascript" src="/angular-route/angular-route.js"></script>
+        <script type="text/javascript" src="/angular-material/angular-material.min.js"></script>
+        <script type="text/javascript" src="/angular-aria/angular-aria.min.js"></script>
+        <script type="text/javascript" src="/angular-animate/angular-animate.min.js"></script>
+        <script src="http://ngmaterial.assets.s3.amazonaws.com/svg-assets-cache.js"></script>
+        <script type="text/javascript" src="/angular-messages/angular-messages.min.js"></script>
 
-        <script type="text/javascript">
-            var app = angular.module('MyxApp', ['ngRoute']);
-
-            app.config(function($routeProvider, $locationProvider) {
-                $routeProvider
-                .when("/", {
-                    templateUrl: 'html/homepage.html',
-                    controller: 'HomeCtrl'
-                })
-                .when("/createpage", {
-                    templateUrl: 'html/createRecipe.html',
-                    controller: 'RecipeCtrl'
-                })
-                .otherwise({
-                    redirectTo: '/'
-                });
-                                
-            });
-
-            app.controller("HomeCtrl", function($scope, $route, $routeParams, $location, $http) {
-                $scope.$route = $route;
-                $scope.$location = $location;
-                $scope.$routeParams = $routeParams;
-                
-                $scope.removeRecipe = function(recipe) {
-                    $http.put("/homepage/remove", {recipe: recipe}).then(function() {
-                        getRecipes();
-                    });
-
-                };
-
-                function getRecipes() {
-                    $http.get('/homepage').then(function (response) {
-                        $scope.recipes = response.data;
-                    });
-                };
-
-                getRecipes();
-               
-            });
-            
-            app.controller("RecipeCtrl", function($scope, $route, $routeParams, $location, $http) {
-                $scope.$route = $route;
-                $scope.$location = $location;
-                $scope.$routeParams = $routeParams;
-                
-                $scope.recipeList= [
-                        {segment: 5, amount:4.1},
-                        {segment: 8, amount:8.9},
-                        {segment: 1, amount:5.7}
-                    ];
-                $scope.ingredient = {segment: 4, amount:12.4};
-                $scope.ingredient2 = {segment: 2, amount: 14.2}
-                
-                
-                $scope.recipeList.push($scope.ingredient);
-                $scope.recipeList.push($scope.ingredient2);
-                
-                $scope.deleteIngredient = function (index) {
-                    $scope.recipeList.splice(index,1);
-                };
-                
-                $scope.submitNewRecipe = function() {
-                    $http.post("/homepage", {newRecipe: $scope.newRecipe}).then(function() {
-                        $scope.newRecipe = "";
-                        
-                    });
-
-                };
-
-            });
-            
-        </script>
+        <script type="text/javascript" src="js/controller.js"></script>
 
     </head>
 
-    <body>
+    <body ng-cloak>
         <div class="mdl-layout__container">
             <div class="main-header">
                 <div class="mdl-layout mdl-js-layout mdl-layout--fixed-header">
@@ -116,10 +49,8 @@
                                 <i class="material-icons">home</i>
                             </a>
                         </div>
-                        
                     </header>
                     <!-- End of mdl-layout__header-row -->
-                    
 
                     <div class="mdl-layout__drawer">
                         <span class="mdl-layout-title mdl-cell  mdl-cell--hide-phone mdl-cell--12-col">Sort</span>
@@ -150,19 +81,6 @@
             
         </div>
         <!-- End of myx-container -->
-        
-        <dialog class="mdl-dialog">
-            <h4 class="mdl-dialog__title">Amount in mL: </h4>
-            <div class="mdl-dialog__content">
-                <!-- Default Slider -->
-                <input class="mdl-slider mdl-js-slider" type="range"
-                  min="0" max="100" value="0" tabindex="0">
-            </div>
-            <div class="mdl-dialog__actions">
-              <button type="button" class="mdl-button close">OK</button>
-            </div>
-        </dialog>
-        <!-- End of mdl-dialog -->
         
     </body>
     
