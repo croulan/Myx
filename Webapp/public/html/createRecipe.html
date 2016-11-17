@@ -7,20 +7,20 @@
         <div class="ordered-toggle">
             <h5>Ordered</h5>
             <label class="mdl-switch mdl-js-switch mdl-js-ripple-effect" for="switch1">
-                <input type="checkbox" id="switch1" class="mdl-switch__input">
+                <input type="checkbox" id="switch1" class="mdl-switch__input" ng-model="recipe.ordered"> <br />
             </label>
         </div>
     
         
         <form action="#">
             <div class="recipe-search--header mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-                <input class="mdl-textfield__input" rows="5" type="text" ng-model="newRecipe">
+                <input class="mdl-textfield__input" rows="5" type="text" ng-model="recipe.name">
                 <label class="mdl-textfield__label">Recipe Name</label>
             </div>
             
               <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label" rows="7">
-                <input class="mdl-textfield__input" type="text" id="desciption" ng-model="description">
-                <label class="mdl-textfield__label" for="desciption">Description...</label>
+                <input class="mdl-textfield__input" type="text" id="desciption" ng-model="recipe.author">
+                <label class="mdl-textfield__label" for="desciption">Created By</label>
               </div>
             
             <button class="mdl-button mdl-button--icon mdl-js-button mdl-js-ripple-effect"
@@ -32,20 +32,18 @@
         <div class="mdl-card demo-card-wide mdl-shadow--2dp">
             <div class="mdl-card__title">
                 <div class="typo-styles__demo mdl-typography--display-2">
-                    {{ newRecipe }}
+                    {{ recipe.name }}
                 </div>
             </div>
-
             <div class="mdl-card__supporting-text">
-                <span ng-repeat="ingredient in recipeList">
+                <span ng-repeat="ingredient in recipe.ingredients">
                     <span class="mdl-chip mdl-chip--contact mdl-chip--deletable">
                         <span class="mdl-chip__contact mdl-color--accent mdl-color-text--white">{{ ingredient.segment }}</span>
-                        <span class="mdl-chip__text">Amt: {{ingredient.amount}}</span>
+                        <span class="mdl-chip__text">Amt: {{ ingredient.amount }}</span>
                         <a class="mdl-chip__action"><i class="material-icons" ng-click="deleteIngredient($index)">cancel</i></a>
                     </span>
                 </span>
             </div>
-            
             <div class="mdl-card__actions mdl-card--border">
                 <button class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect">
                     Myx! It
@@ -112,7 +110,6 @@
                 <md-button class="md-primary md-raised" ng-click="answer(ingredient.amt)">OK</md-button>
             </div>
         </md-dialog-content>
-       
     </md-dialog>
 </script>
 <!-- End of create-container -->

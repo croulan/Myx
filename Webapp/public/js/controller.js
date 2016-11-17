@@ -28,6 +28,7 @@ app.controller("HomeCtrl", function($scope, $route, $routeParams, $location, $ht
     $scope.$routeParams = $routeParams;
     
     $scope.removeRecipe = function(recipe) {
+
         $http.put("/homepage/remove", {recipe: recipe}).then(function() {
             getRecipes();
         });
@@ -54,19 +55,26 @@ app.controller("RecipeCtrl", function($scope, $route, $routeParams, $location, $
     // mdDialog settings
     $scope.customFullscreen = false;
     
-    $scope.recipeList= [];
-
+    $scope.recipe = {
+        name: "",
+        ordered: false,
+        ingredients: [],
+        author: "",
+        time: 0
+    }
     
     $scope.deleteIngredient = function (index) {
-        $scope.recipeList.splice(index,1);
+        $scope.recipe.ingredients.splice(index,1);
     };
     
     $scope.submitNewRecipe = function() {
-        $http.post("/homepage", {newRecipe: $scope.newRecipe}).then(function() {
-            $scope.newRecipe = "";
+        $scope.recipe.time = (new Date).getTime();
+        
+        $http.post("/homepage", {recipe: $scope.recipe}).then(function() {
+            $scope.recipe.name = "";
             
         });
-
+        
     };
     
     $scope.showRecipeAmt = function(event, seg) {
@@ -88,15 +96,15 @@ app.controller("RecipeCtrl", function($scope, $route, $routeParams, $location, $
                 amount: amt
             }
             
-            for(var i=0; i<$scope.recipeList.length; i++) {
-                if($scope.recipeList[i].segment == seg) {
-                    $scope.recipeList[i].amount = amt;
+            for(var i=0; i<$scope.recipe.ingredients.length; i++) {
+                if($scope.recipe.ingredients[i].segment == seg) {
+                    $scope.recipe.ingredients[i].amount = amt;
                     inList = true;
                 }
             }
             
             if(!inList) {
-                $scope.recipeList.push(ingredient);
+                $scope.recipe.ingredients.push(ingredient);
             }
             
         });
