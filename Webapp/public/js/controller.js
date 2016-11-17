@@ -70,6 +70,7 @@ app.controller("RecipeCtrl", function($scope, $route, $routeParams, $location, $
     };
     
     $scope.showRecipeAmt = function(event, seg) {
+        var inList = false;
         
         $mdDialog.show({
             controller:DialogController,
@@ -82,14 +83,13 @@ app.controller("RecipeCtrl", function($scope, $route, $routeParams, $location, $
             fullscreen: $scope.customFullscreen
         })
         .then(function(amt) {
-            var inList = false;
             var ingredient = {
                 segment: seg,
                 amount: amt
             }
             
             for(var i=0; i<$scope.recipeList.length; i++) {
-                if($scope.recipeList.segment == seg) {
+                if($scope.recipeList[i].segment == seg) {
                     $scope.recipeList[i].amount = amt;
                     inList = true;
                 }
@@ -97,7 +97,6 @@ app.controller("RecipeCtrl", function($scope, $route, $routeParams, $location, $
             
             if(!inList) {
                 $scope.recipeList.push(ingredient);
-                console.log($scope.recipeList);
             }
             
         });
