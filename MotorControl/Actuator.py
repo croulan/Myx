@@ -73,6 +73,27 @@ gpio.setup(act8, gpio.OUT)
 gpio.setup(h_in1, gpio.OUT)
 gpio.setup(h_in2, gpio.OUT)
 
+gpio.output(act1, OFF)
+gpio.output(act2, OFF)
+gpio.output(act3, OFF)
+gpio.output(act4, OFF)
+gpio.output(act5, OFF)
+gpio.output(act6, OFF)
+gpio.output(act7, OFF)
+gpio.output(act8, OFF)
+
+
+def initialize_relays(): 
+
+    for pin in actDict:
+        #print actDict[pin]
+        #set_Actuator_Off(actDict[pin])
+        #time.sleep(.1)
+        #set_Actuator_On(actDict[pin])
+        time.sleep(.3)
+        actuate_Amt(actDict[ingred.segNum-1], ingred.mL)
+
+
 def actuate(pin, t): 
     """
     actuate_Amt(pin, t)

@@ -1,6 +1,6 @@
 from Platform import Platform
 from Recipe import Recipe
-import lel
+import hbridge
 import Actuator
 import time
 import math
@@ -26,8 +26,7 @@ def main():
     #platform.hard_Reset()   # Ideally this will be in the __init__ for main
 
     # Step 1: get recipe from user either from onboard gui or android app
-    sampleRecipe = "1,12.5,4,12.5,3,12.5"
-#"5,12.5,3,12.5,4,12.5,2,12.5,8,12.5,7,12.5" 
+    sampleRecipe = "1,12.5,4,12.5,3,12.5,5,12.5,3,12.5,4,12.5,2,12.5,8,12.5,7,12.5" 
 
     # Step 2: split recipe string to a stack of seperate ingredients
     recipe.initilize_Stack(sampleRecipe)
@@ -36,7 +35,7 @@ def main():
     #recipeOrder = platform.get_Shortest_Path(recipe)
     recipeOrder = recipe.recipeStack 
     
-    lel.turnOff()
+    hbridge.turnOff()
     time.sleep(.3)
     # Step 4: interate over each ingredient then move platform
     for ingred in recipeOrder: 
@@ -48,10 +47,10 @@ def main():
 
         # Step 5: once platform reached its mark, pour amount
         
-        lel.turnOn()
+        hbridge.turnOn()
         time.sleep(.3)
         Actuator.actuate_Amt(Actuator.actDict[ingred.segNum-1], ingred.mL)
-        lel.turnOff()
+        hbridge.turnOff()
         time.sleep(WAIT) 
 
 
