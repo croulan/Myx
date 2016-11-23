@@ -230,9 +230,6 @@ class Platform(object):
                 print "MOVE ABORTED: Platform movement out of bounds! in ELSE"
                 return  
 
-    def user_Order(self, r): 
-        pass
-
     def get_Shortest_Path(self,r): 
         """
         get_Shortest_Path(r)
@@ -274,6 +271,7 @@ class Platform(object):
 
         get_Max returns the farthest distance on the list depending on segment name
         """
+
         temp = []
         
         if len(temp) > 0:

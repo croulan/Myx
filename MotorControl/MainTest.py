@@ -23,7 +23,7 @@ def main():
     recipe = Recipe() 
     
     # Step 0: Preform hard reset to calibrate platform position during startup
-    #platform.hard_Reset()   # Ideally this will be in the __init__ for main
+    platform.hard_Reset()   
 
     # Step 1: get recipe from user either from onboard gui or android app
     sampleRecipe = "1,12.5,4,12.5,3,12.5,5,12.5,3,12.5,4,12.5,2,12.5,8,12.5,7,12.5" 
@@ -36,7 +36,7 @@ def main():
     recipeOrder = recipe.recipeStack 
     
     hbridge.turnOff()
-    time.sleep(.3)
+    time.sleep(.1)
     # Step 4: interate over each ingredient then move platform
     for ingred in recipeOrder: 
         print "Getting %rmL of segment %r" %(ingred.mL, ingred.segNum)
@@ -48,7 +48,7 @@ def main():
         # Step 5: once platform reached its mark, pour amount
         
         hbridge.turnOn()
-        time.sleep(.3)
+        time.sleep(.1)
         Actuator.actuate_Amt(Actuator.actDict[ingred.segNum-1], ingred.mL)
         hbridge.turnOff()
         time.sleep(WAIT) 

@@ -134,7 +134,7 @@ def actuate_Amt(pin, amt):
         time.sleep(pourTime[12.5])
         set_Actuator_Off(pin)
         time.sleep(1)
-        set_Idle(pin)
+        se#t_Idle(pin)
 
     print "Finished segment pour"
  
