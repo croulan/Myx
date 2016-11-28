@@ -1,5 +1,5 @@
 <script type="text/javascript">
-    componentHandler.upgradeDom();
+    componentHandler.upgradeDom(); 
 </script>
 
 <div id="create-container" class="create-container">
@@ -7,11 +7,10 @@
         <div class="ordered-toggle">
             <h5>Ordered</h5>
             <label class="mdl-switch mdl-js-switch mdl-js-ripple-effect" for="switch1">
-                <input type="checkbox" id="switch1" class="mdl-switch__input" ng-model="recipe.ordered"> <br />
+                <input type="checkbox" id="switch1" class="mdl-switch__input" ng-model="recipe.ordered" ng-true-value="'Is Ordered'" ng-false-value="'Not Ordered'"> <br />
             </label>
         </div>
-    
-        
+
         <form action="#">
             <div class="recipe-search--header mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
                 <input class="mdl-textfield__input" rows="5" type="text" ng-model="recipe.name">
@@ -33,6 +32,12 @@
             <div class="mdl-card__title">
                 <div class="typo-styles__demo mdl-typography--display-2">
                     {{ recipe.name }}
+                </div>
+                <div id="recipe-card-toggle-status" value="do it wokr">
+                    {{ recipe.ordered }}
+                </div>
+                <div id="text_author" class="typo-styles__demo mdl-typography--display-headline">   
+                    By: {{ recipe.author }}  
                 </div>
             </div>
             <div class="mdl-card__supporting-text">
@@ -112,4 +117,3 @@
         </md-dialog-content>
     </md-dialog>
 </script>
-<!-- End of create-container -->

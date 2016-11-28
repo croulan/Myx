@@ -8,6 +8,10 @@ a {
     text-decoration: none !important;
 }
 
+#searchbar {
+    width: 200px;
+}
+
 .main-header {
     width: 100%;
 }
@@ -112,11 +116,37 @@ a {
 }
 
 .ordered-toggle h5 {
-    position:absolute;
     margin:auto;
     padding-top: 2px;
     right:95px;
     color:#67696d;
+}
+
+.mdl-card__title { 
+    position:relative;
+    align-items: center;
+}
+
+#recipe-card-toggle-status { 
+    color:#fff;
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    margin-right: 8px; 
+    margin-bottom: 25px;
+}
+
+#text_author{ 
+    color:#fff;
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    margin-right: 8px; 
+    margin-bottom: 4px;
+}
+
+.mdl-switch.is-upgraded {
+    margin-left: 35px;
 }
 
 .top-button-row button {

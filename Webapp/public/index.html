@@ -44,8 +44,12 @@
                             <!-- Add spacer, to align navigation to the right -->
                             <div class="mdl-layout-spacer"></div>
                             
+                            <div id="searchbar" class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                                <input class="mdl-textfield__input" ng-model="searchText" type="text" id="search">
+                                <label class="mdl-textfield__label" for="search">Search Recipe...</label>
+                            </div>
                             <a id="homeButton" class="mdl-button mdl-button--icon mdl-js-button mdl-js-ripple-effect"
-                            href="#/homepage">
+                            ng-href="#/homepage">
                                 <i class="material-icons">home</i>
                             </a>
                         </div>

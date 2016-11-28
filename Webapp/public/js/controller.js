@@ -14,7 +14,7 @@ app.config(function($routeProvider, $locationProvider) {
         redirectTo: '/'
     });
                     
-});
+}); 
 
 app.config(function($mdThemingProvider) {
   $mdThemingProvider.theme('default')
