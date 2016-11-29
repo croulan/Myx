@@ -4,8 +4,9 @@ import hbridge
 import Actuator
 import time
 import math
-import RPi.GPIO as gpio
-#import gpio
+import sys
+#import RPi.GPIO as gpio
+import gpio
 
 WAIT = 1   #Wait between platform and actuator handoff
 
@@ -23,17 +24,20 @@ def main():
     recipe = Recipe() 
     
     # Step 0: Preform hard reset to calibrate platform position during startup
-    platform.hard_Reset()   
+    #platform.hard_Reset()   
 
     # Step 1: get recipe from user either from onboard gui or android app
-    sampleRecipe = "1,12.5,4,12.5,3,12.5,5,12.5,3,12.5,4,12.5,2,12.5,8,12.5,7,12.5" 
+    #sampleRecipe = sys.argv[1]
+    sampleRecipe = "1,12.5,4,12.5,3,12.5,5,12.5,3,12.5,4,12.5,2,12.5,8,12.5,7,12.5,true" 
 
     # Step 2: split recipe string to a stack of seperate ingredients
     recipe.initilize_Stack(sampleRecipe)
 
     # Step 3: specify the order of the recipe
-    #recipeOrder = platform.get_Shortest_Path(recipe)
-    recipeOrder = recipe.recipeStack 
+    if recipe.isOrdered == True:
+        recipeOrder = recipe.recipeStack 
+    else: 
+        recipeOrder = platform.get_Shortest_Path(recipe)
     
     hbridge.turnOff()
     time.sleep(.1)
@@ -63,7 +67,6 @@ def main():
 
 
 if __name__ == "__main__": 
-    
     # House keeping for gpios incase of an interrupt 
     try: 
         main()

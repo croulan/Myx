@@ -15,18 +15,28 @@ class Recipe(object):
 
     def __init__(self): 
         super(Recipe, self).__init__()
+        self.isOrdered = True
 
     def initilize_Stack(self,s): 
         """
         initilize_Stack(s)
         s = String
         RETURN: 
+
         initlize_Stack will take a comma delimited string and seperates the 
         elements. The elements will be popped out of the stack to create a list of 
         ingredients which then gets appended into the recipeStack
         """
 
         stack = s.split(',')
+
+        if stack[len(stack)-1] == "true": 
+            self.isOrdered = True
+            stack.pop(len(stack)-1)
+        else: 
+            stack.pop(len(stack)-1)
+            self.isOrdered = False
+            
         
         for i in range(0, len(stack)/2):
                 temp = Ingredient()

@@ -1,7 +1,7 @@
 import time
 from math import floor
-import RPi.GPIO as gpio
-#import gpio
+#import RPi.GPIO as gpio
+import gpio
 
 """
 File: Actuator.py

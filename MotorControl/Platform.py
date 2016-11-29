@@ -3,8 +3,8 @@ from time import sleep
 from Segment import Segment 
 from Recipe import Recipe
 from math import ceil
-import RPi.GPIO as gpio
-#import gpio
+#import RPi.GPIO as gpio
+import gpio
 
 gpio.setmode(gpio.BCM) 
 
@@ -243,7 +243,7 @@ class Platform(object):
         partitionRight = []
 
         # Partition recipe based off of weight
-        for ingredient in r.Recipe.recipeStack:
+        for ingredient in r.recipeStack:
             if Platform.segList[ingredient.segNum - 1].weight == Platform.RIGHT:
                 partitionRight.append(ingredient)
             else:  
