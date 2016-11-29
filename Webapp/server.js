@@ -1,8 +1,8 @@
-
 var express = require("express");
 var MongoClient = require("mongodb").MongoClient;
 var ObjectId = require('mongodb').ObjectID;
 var bodyparse = require("body-parser");
+var PythonShell = require("python-shell");
 var app = express();
 
 var db = null;
@@ -17,6 +17,29 @@ MongoClient.connect('mongodb://localhost:27017/mittens', function(err, dbconn) {
         db = dbconn;
     }
 });
+ 
+app.put('/myxrecipe', function (req, res, next) {
+    var sendRecipe = req.body.data;
+    var options = {
+        mode: 'text',
+        pythonPath: '/usr/bin/python',
+        pythonOptions: ['-u'],
+        scriptPath: '../MotorControl',
+        args: ''
+    };
+
+    options.args = req.body.data;
+        
+    PythonShell.run('my_script.py', options, function (err, results) {
+        if (err) throw err;
+        // results is an array consisting of messages collected during execution
+        console.log('Myx request sent with recipe: %j', results);
+    });
+
+
+    return res.send();
+        
+});
 
 app.get('/homepage', function (req, res, next) {
     db.collection('meows', function(err, recipeCollection) {
@@ -26,7 +49,7 @@ app.get('/homepage', function (req, res, next) {
         });
 
     });
-
+ 
 });
 
 app.put('/homepage/remove', function(req,res,next) {

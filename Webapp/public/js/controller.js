@@ -35,6 +35,27 @@ app.controller("HomeCtrl", function($scope, $route, $routeParams, $location, $ht
 
     };
 
+    $scope.sendRecipe = function (data) {
+        var recipe = data.contents.recipe;
+        var recipeCSV = "";
+
+        for (var i=0; i<recipe.ingredients.length; i++) { 
+            recipeCSV = recipeCSV.concat(recipe.ingredients[i].segment.toString()
+                + "," + recipe.ingredients[i].amount.toString() + ",");
+        
+        }
+
+        if (recipe.ordered == "Is Ordered") { 
+            recipeCSV = recipeCSV.concat("true");
+        } else { 
+            recipeCSV = recipeCSV.concat("false");
+        }
+
+        $http.put("/myxrecipe",{data: recipeCSV}).then(function () { 
+            getRecipes();
+        });
+    }
+
     function getRecipes() {
         $http.get('/homepage').then(function (response) {
             $scope.recipes = response.data;
@@ -57,7 +78,7 @@ app.controller("RecipeCtrl", function($scope, $route, $routeParams, $location, $
     
     $scope.recipe = {
         name: "",
-        ordered: false,
+        ordered: "Not Ordered",
         ingredients: [],
         author: "",
         time: 0

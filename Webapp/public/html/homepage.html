@@ -16,16 +16,18 @@
                 <div class="mdl-card__supporting-text">
                     <span ng-repeat="ingredient in card.contents.recipe.ingredients">
                         <span class="mdl-chip mdl-chip--contact mdl-chip--deletable">
-                            <span class="mdl-chip__contact mdl-color--accent mdl-color-text--white">{{ ingredient.segment }}</span>
+                            <span class="mdl-chip__contact mdl-color--accent mdl-color-text--white">
+                                {{ ingredient.segment }}
+                            </span>
                             <span class="mdl-chip__text">Amt: {{ ingredient.amount }}</span>
                         </span>
                     </span>
                 </div>
                
                 <div class="mdl-card__actions mdl-card--border">
-                    <button class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect">
+                    <a class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect" ng-click="sendRecipe(card)"> 
                         Myx! It
-                    </button>
+                    </a>
                 </div>
                 <div class="mdl-card__menu">
                     <button class="mdl-button mdl-button--icon mdl-js-button mdl-js-ripple-effect"
