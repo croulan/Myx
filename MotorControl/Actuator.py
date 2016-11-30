@@ -1,8 +1,8 @@
 import time
 from math import floor
 from math import sqrt
-#import RPi.GPIO as gpio
-import gpio
+import RPi.GPIO as gpio
+#import gpio
 
 """
 File: Actuator.py

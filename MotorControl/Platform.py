@@ -3,8 +3,8 @@ from time import sleep
 from Segment import Segment 
 from Recipe import Recipe
 from math import ceil
-#import RPi.GPIO as gpio
-import gpio
+import RPi.GPIO as gpio
+#import gpio
 
 gpio.setmode(gpio.BCM) 
 

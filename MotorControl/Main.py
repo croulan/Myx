@@ -5,8 +5,8 @@ import hbridge
 import Actuator
 import time
 import sys
-#import RPi.GPIO as gpio
-import gpio
+import RPi.GPIO as gpio
+#import gpio
 
 WAIT = 1   #Wait between platform and actuator handoff
 
