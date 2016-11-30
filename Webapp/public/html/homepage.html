@@ -1,5 +1,5 @@
-<div class="myx-feed row feed">
-    <div class="recipe-list col-md-12">
+<div class="myx-feed row feed" ng-cloak>
+    <div class="recipe-list col-md-12" id="myx-feed-container">
         <div class="recipe-cards" ng-repeat="card in recipes | orderBy:'-(contents.recipe.time)' | filter:searchText">
             <div class="mdl-card demo-card-wide mdl-shadow--2dp">
                 <div class="mdl-card__title">
@@ -10,7 +10,7 @@
                         {{ card.contents.recipe.ordered }}
                     </div>
                     <div id="text_author" class="typo-styles__demo mdl-typography--display-headline">
-                        By: {{ card.contents.recipe.author }}  
+                        By: {{ card.contents.recipe.author }}
                     </div>
                 </div>
                 <div class="mdl-card__supporting-text">
@@ -25,7 +25,7 @@
                 </div>
                
                 <div class="mdl-card__actions mdl-card--border">
-                    <a class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect" ng-click="sendRecipe(card)"> 
+                    <a class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect" ng-click="sendRecipe($event,card)">
                         Myx! It
                     </a>
                 </div>
@@ -33,6 +33,10 @@
                     <button class="mdl-button mdl-button--icon mdl-js-button mdl-js-ripple-effect"
                         ng-click="removeRecipe(card)">
                         <i class="material-icons">delete</i>
+                    </button>
+                    
+                    <button class="mdl-button mdl-button--icon mdl-js-button mdl-js-ripple-effect">
+                        <i class="material-icons">edit</i>
                     </button>
                 </div>
             </div>

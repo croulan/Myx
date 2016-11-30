@@ -10,11 +10,15 @@ app.config(function($routeProvider, $locationProvider) {
         templateUrl: 'html/createRecipe.html',
         controller: 'RecipeCtrl'
     })
+    .when("/editpage", {
+        templateUrl: "html/edit.Recipe.html",
+        controller: "EditCtrl"
+    })
     .otherwise({
         redirectTo: '/'
     });
                     
-}); 
+});
 
 app.config(function($mdThemingProvider) {
   $mdThemingProvider.theme('default')
@@ -22,10 +26,20 @@ app.config(function($mdThemingProvider) {
     .accentPalette('orange');
 });
 
-app.controller("HomeCtrl", function($scope, $route, $routeParams, $location, $http) {
+app.controller("EditCtrl", function($scope, $route, $routeParams, $location, $http) {
     $scope.$route = $route;
     $scope.$location = $location;
     $scope.$routeParams = $routeParams;
+
+    console.log("made it to edit ctrl!");
+});
+
+app.controller("HomeCtrl", function($scope, $route, $routeParams, $location, $http, $mdDialog) {
+    $scope.$route = $route;
+    $scope.$location = $location;
+    $scope.$routeParams = $routeParams;
+    
+    $scope.customFullscreen = false;
     
     $scope.removeRecipe = function(recipe) {
 
@@ -35,23 +49,35 @@ app.controller("HomeCtrl", function($scope, $route, $routeParams, $location, $ht
 
     };
 
-    $scope.sendRecipe = function (data) {
+    $scope.sendRecipe = function (ev,data) {
         var recipe = data.contents.recipe;
         var recipeCSV = "";
 
-        for (var i=0; i<recipe.ingredients.length; i++) { 
+        $mdDialog.show(
+            $mdDialog.alert()
+            .parent(angular.element(document.getElementsByClassName(".mdl-layout__container")))
+            .clickOutsideToClose(true)
+            .title('Recipe Sent...')
+            .textContent('Sit tight, in a couple moments your drink will be served!')
+            .ariaLabel('Alert Dialog Demo')
+            .ok('Got it!')
+            .targetEvent(ev)
+
+        );
+
+        for (var i=0; i<recipe.ingredients.length; i++) {
             recipeCSV = recipeCSV.concat(recipe.ingredients[i].segment.toString()
                 + "," + recipe.ingredients[i].amount.toString() + ",");
         
         }
 
-        if (recipe.ordered == "Is Ordered") { 
+        if (recipe.ordered == "Is Ordered") {
             recipeCSV = recipeCSV.concat("true");
-        } else { 
+        } else {
             recipeCSV = recipeCSV.concat("false");
         }
 
-        $http.put("/myxrecipe",{data: recipeCSV}).then(function () { 
+        $http.put("/myxrecipe",{data: recipeCSV}).then(function () {
             getRecipes();
         });
     }

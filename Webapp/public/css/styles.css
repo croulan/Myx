@@ -28,6 +28,14 @@ a {
     background: #f9f9f9;
 }
 
+md-dialog #recipe-dialog {
+    max-width: 1100px;
+    position: absolute;
+    margin:auto;
+    left:0;
+    right:0;
+}
+
 .layout__content-container {
     max-width: 1100px;
     position: absolute;
@@ -42,6 +50,10 @@ a {
 
 #homeButton {
     margin-right:8px;
+}
+
+.md-dialog-content {
+    overflow: hidden;
 }
 
 .mdl-button--fab {
@@ -122,26 +134,26 @@ a {
     color:#67696d;
 }
 
-.mdl-card__title { 
+.mdl-card__title {
     position:relative;
     align-items: center;
 }
 
-#recipe-card-toggle-status { 
+#recipe-card-toggle-status {
     color:#fff;
     position: absolute;
     bottom: 0;
     right: 0;
-    margin-right: 8px; 
+    margin-right: 8px;
     margin-bottom: 25px;
 }
 
-#text_author{ 
+#text_author{
     color:#fff;
     position: absolute;
     bottom: 0;
     right: 0;
-    margin-right: 8px; 
+    margin-right: 8px;
     margin-bottom: 4px;
 }
 
@@ -166,15 +178,20 @@ a {
 }
 
 /* CSS of Recipe Dialog Popup */
-#recipeSlider {
-    width:350px;
-    margin-top: 20px;
-    margin-bottom: 8px;
+md-slider-container {
+    height: 80px;
+    overflow-y: hidden;
 }
 
-md-dialog-content {
-    width: 400px;
-    height: 105px;
+md-dialog {
+    width: 55%;
+    height: 175px;
+}
+
+md-slider .md-slider-wrapper {
+    position: fixed !important;
+    width: 90% !important;
+    height: 50px !important;
 }
 
 #dialogOK {

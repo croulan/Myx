@@ -30,12 +30,14 @@ app.put('/myxrecipe', function (req, res, next) {
 
     options.args = req.body.data;
         
-    PythonShell.run('my_script.py', options, function (err, results) {
+    PythonShell.run('Main.py', options, function (err, results) {
         if (err) throw err;
         // results is an array consisting of messages collected during execution
         console.log('Myx request sent with recipe: %j', results);
+    })
+    .on('message', function (message) {
+        console.log(message);
     });
-
 
     return res.send();
         
