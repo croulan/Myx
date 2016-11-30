@@ -1,8 +1,8 @@
 import math
 
-a = -3.929
-b = 21.349
-c = 1.551
+A_CONST = -3.929
+B_CONST = 21.349
+C_CONST = 1.551
 
 def find_Time (amt): 
-    return (-b + math.sqrt(pow(b,2) - (4*a*(c-amt))))/(2*a)
+    return (-B_CONST + math.sqrt(pow(B_CONST,2) - (4*A_CONST*(C_CONST-amt))))/(2*A_CONST)

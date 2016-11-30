@@ -1,5 +1,6 @@
 import time
 from math import floor
+from math import sqrt
 #import RPi.GPIO as gpio
 import gpio
 
@@ -14,6 +15,7 @@ board.)
 
 METHODS: 
     def actuate_Amt(pin, amt) 
+    def find_Time(amt)
     def set_Actuator_Off(pin) 
     def set_Actuator_On(pin) 
     def set_Idle(pin) 
@@ -25,6 +27,10 @@ gpio.setmode(gpio.BCM)
 # NOTE: Relayboard is active low
 ON = 0
 OFF = 1
+
+A_CONST = -3.929
+B_CONST = 21.349
+C_CONST = 1.551
 
 # Pin mapping
 act1 = 10 
@@ -84,7 +90,6 @@ gpio.output(act8, OFF)
 
 
 def initialize_relays(): 
-
     for pin in actDict:
         #print actDict[pin]
         #set_Actuator_Off(actDict[pin])
@@ -93,21 +98,42 @@ def initialize_relays():
         time.sleep(.3)
         actuate_Amt(actDict[ingred.segNum-1], ingred.mL)
 
+def find_Time (amt): 
 
-def actuate(pin, t): 
+    # Minimum amount constraint
+    if amt < 1.55101:
+        print "gottem"
+        amt = 1.55101
+
+    return (-B_CONST + sqrt(pow(B_CONST,2) - (4.0*A_CONST*(C_CONST-amt))))/(2.0*A_CONST)
+
+def actuate(pin,amt): 
     """
-    actuate_Amt(pin, t)
+    actuate_Amt(pin, amt)
     pin = int 
-    t = float
+    amt = float
 
-    actuate will contract the actuator for a given amount of time t.
+    actuate will contract the actuator based off of the amount.
     """
+    j=0
 
-    print "time: %r" % t
-    set_Actuator_On(pin)
-    time.sleep(t)
+    print "passed: %f" % amt
+    while amt>25.0:
+        j = j+1
+        amt = amt-25.0
+
+    for i in range(0,j):
+        print "Actuated: %f | Sleeping for %f seconds" % (25.0, find_Time(25.0))
+        time.sleep(find_Time(25.0))
+        set_Actuator_Off(pin)
+        time.sleep(.1)
+        set_Idle(pin)
+        print "Finished segment pour"
+
+    print "Actuated: %f | Sleeping for %f seconds" % (amt, find_Time(amt))
+    time.sleep(find_Time(amt))
     set_Actuator_Off(pin)
-    time.sleep(1)
+    time.sleep(.1)
     set_Idle(pin)
     print "Finished segment pour"
 
@@ -134,11 +160,9 @@ def actuate_Amt(pin, amt):
         time.sleep(pourTime[12.5])
         set_Actuator_Off(pin)
         time.sleep(1)
-        se#t_Idle(pin)
+        set_Idle(pin)
 
     print "Finished segment pour"
- 
-
 
 def set_Actuator_Off(pin): 
     """
