@@ -47,7 +47,9 @@
                     <span class="mdl-chip mdl-chip--contact mdl-chip--deletable">
                         <span class="mdl-chip__contact mdl-color--accent mdl-color-text--white">{{ ingredient.segment }}</span>
                         <span class="mdl-chip__text">Amt: {{ ingredient.amount }}</span>
-                        <a class="mdl-chip__action"><i class="material-icons" ng-click="deleteIngredient($index)">cancel</i></a>
+                        <a class="mdl-chip__action" ng-click="deleteIngredient($index)">
+                            <img id="cancel-icon" src="assets/icons/cancel.svg" alt="cancel" />
+                        </a>
                     </span>
                 </span>
             </div>

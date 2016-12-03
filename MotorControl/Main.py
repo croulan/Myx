@@ -26,8 +26,8 @@ def main():
     #platform.hard_Reset()   
 
     # Step 1: get recipe from user either from onboard gui or android app
-    sampleRecipe = sys.argv[1]
-    #sampleRecipe = "1,12.5,4,12.5,3,12.5,5,12.5,3,12.5,4,12.5,2,12.5,8,12.5,7,12.5,true" 
+    #sampleRecipe = sys.argv[1]
+    sampleRecipe = "1,19.3,2,19.3,3,19.3,4,19.3,5,19.3,6,19.3,7,19.3,8,19.3,true" 
 
     # Step 2: split recipe string to a stack of seperate ingredients
     recipe.initilize_Stack(sampleRecipe)
@@ -39,7 +39,7 @@ def main():
         recipeOrder = platform.get_Shortest_Path(recipe)
     
     hbridge.turnOff()
-    time.sleep(.1)
+    time.sleep(.3)
     # Step 4: interate over each ingredient then move platform
     for ingred in recipeOrder: 
         print "Getting %rmL of segment %r" %(ingred.mL, ingred.segNum)
@@ -51,7 +51,7 @@ def main():
         # Step 5: once platform reached its mark, pour amount
         
         hbridge.turnOn()
-        time.sleep(.1)
+        time.sleep(.2)
         Actuator.actuate(Actuator.actDict[ingred.segNum-1], float(ingred.mL))
         hbridge.turnOff()
         time.sleep(WAIT) 

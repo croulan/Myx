@@ -3,7 +3,8 @@ From: github.com/oRRs/mdl-jquery-modal-dialog*/
 function showLoading() {
     // remove existing loaders
     $('.loading-container').remove();
-    $('<div id="orrsLoader" class="loading-container"><div><div class="mdl-spinner mdl-js-spinner is-active"></div></div></div>').appendTo("body");
+    $('<div id="orrsLoader" class="loading-container"><div><div class="mdl-spinner mdl-js-spinner is-active"></div></div></div>')
+        .appendTo("body");
 
     componentHandler.upgradeElements($('.mdl-spinner').get());
     setTimeout(function () {
@@ -34,7 +35,8 @@ function showDialog(options) {
     $('.dialog-container').remove();
     $(document).unbind("keyup.dialog");
 
-    $('<div id="' + options.id + '" class="dialog-container"><div class="mdl-card mdl-shadow--16dp"></div></div>').appendTo("body");
+    $('<div id="' + options.id + '" class="dialog-container"><div class="mdl-card mdl-shadow--16dp"></div></div>')
+        .appendTo("body");
     var dialog = $('#orrsDiag');
     var content = dialog.find('.mdl-card');
     if (options.contentStyle !== null) content.css(options.contentStyle);
@@ -54,7 +56,8 @@ function showDialog(options) {
                     return false;
                 }
             }, options.negative);
-            var negButton = $('<button class="mdl-button mdl-js-button mdl-js-ripple-effect" id="' + options.negative.id + '">' + options.negative.title + '</button>');
+            var negButton = $('<button class="mdl-button mdl-js-button mdl-js-ripple-effect" id="' 
+                    + options.negative.id + '">' + options.negative.title + '</button>');
             negButton.click(function (e) {
                 e.preventDefault();
                 if (!options.negative.onClick(e))
@@ -70,7 +73,8 @@ function showDialog(options) {
                     return false;
                 }
             }, options.positive);
-            var posButton = $('<button class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect" id="' + options.positive.id + '">' + options.positive.title + '</button>');
+            var posButton = $('<button class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect" id="' 
+                    + options.positive.id + '">' + options.positive.title + '</button>');
             posButton.click(function (e) {
                 e.preventDefault();
                 if (!options.positive.onClick(e))

@@ -42,7 +42,7 @@ class Platform(object):
     resetToMid = 653        # Number of steps to hard reset back to mid
     offset = 0.0            # Will keep track of the platform offset
     isOffsetAdded = False   # Offset assumed 0 at every start of servicing a recipe
-    stepsToSegment = 170    # number of steps to get to adjacent segment
+    stepsToSegment = 165    # number of steps to get to adjacent segment
     stepper = Stepper()     # create stepper object
     numSegments = 8         # declare number of segments in Myx!
     segList = [Segment() for i in range(0,numSegments)] # create an object array 

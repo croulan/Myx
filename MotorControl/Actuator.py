@@ -25,12 +25,14 @@ METHODS:
 gpio.setmode(gpio.BCM)
 
 # NOTE: Relayboard is active low
-ON = 0
-OFF = 1
+ON = 1
+OFF = 0
+ACTIVE_LOW = 1
 
 A_CONST = -3.929
 B_CONST = 21.349
 C_CONST = 1.551
+REFILL_TIME = 2
 
 # Pin mapping
 act1 = 10 
@@ -79,14 +81,14 @@ gpio.setup(act8, gpio.OUT)
 gpio.setup(h_in1, gpio.OUT)
 gpio.setup(h_in2, gpio.OUT)
 
-gpio.output(act1, OFF)
-gpio.output(act2, OFF)
-gpio.output(act3, OFF)
-gpio.output(act4, OFF)
-gpio.output(act5, OFF)
-gpio.output(act6, OFF)
-gpio.output(act7, OFF)
-gpio.output(act8, OFF)
+gpio.output(act1, ACTIVE_LOW)
+gpio.output(act2, ACTIVE_LOW)
+gpio.output(act3, ACTIVE_LOW)
+gpio.output(act4, ACTIVE_LOW)
+gpio.output(act5, ACTIVE_LOW)
+gpio.output(act6, ACTIVE_LOW)
+gpio.output(act7, ACTIVE_LOW)
+gpio.output(act8, ACTIVE_LOW)
 
 
 def initialize_relays(): 
@@ -102,7 +104,6 @@ def find_Time (amt):
 
     # Minimum amount constraint
     if amt < 1.55101:
-        print "gottem"
         amt = 1.55101
 
     return (-B_CONST + sqrt(pow(B_CONST,2) - (4.0*A_CONST*(C_CONST-amt))))/(2.0*A_CONST)
@@ -124,16 +125,17 @@ def actuate(pin,amt):
 
     for i in range(0,j):
         print "Actuated: %f | Sleeping for %f seconds" % (25.0, find_Time(25.0))
-        time.sleep(find_Time(25.0))
         set_Actuator_Off(pin)
-        time.sleep(.1)
+        time.sleep(find_Time(25.0))
+        set_Actuator_On(pin)
         set_Idle(pin)
+        time.sleep(REFILL_TIME)
         print "Finished segment pour"
 
     print "Actuated: %f | Sleeping for %f seconds" % (amt, find_Time(amt))
-    time.sleep(find_Time(amt))
     set_Actuator_Off(pin)
-    time.sleep(.1)
+    time.sleep(find_Time(amt))
+    set_Actuator_On(pin)
     set_Idle(pin)
     print "Finished segment pour"
 
@@ -173,9 +175,9 @@ def set_Actuator_Off(pin):
     the actuator a current direction from h_in1 --> h_in2
     """
 
-    gpio.output(h_in1, 0)
-    gpio.output(h_in2, 1)
-    gpio.output(pin, ON)
+    gpio.output(h_in1, ON)
+    gpio.output(h_in2, OFF)
+    gpio.output(pin, OFF)
     time.sleep(.18)
 
 def set_Actuator_On(pin): 
@@ -187,9 +189,9 @@ def set_Actuator_On(pin):
     the actuator a current direction from h_in1 <-- h_in2
     """
 
-    gpio.output(h_in1, 1)
-    gpio.output(h_in2, 0)
-    gpio.output(pin, ON)
+    gpio.output(h_in1, OFF)
+    gpio.output(h_in2, ON)
+    gpio.output(pin, OFF)
     time.sleep(.18)
 
 def set_Idle(pin): 
@@ -200,4 +202,4 @@ def set_Idle(pin):
     set_Idle will output the OFF state for specified pin.
     """
 
-    gpio.output(pin, OFF)
+    gpio.output(pin, ON)

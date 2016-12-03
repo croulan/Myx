@@ -113,7 +113,7 @@ class Stepper:
             setStep(1,0,0,1)
             time.sleep(self.delay)
 
-    def move_Right(self, steps):
+    def move_Left(self, steps):
         """"
         move_Right (float delay, int steps)
         delay = amount of time delay in miliseconds
@@ -134,7 +134,7 @@ class Stepper:
             setStep(1,0,0,1)
             time.sleep(self.delay)
 
-    def move_Left(self, steps):
+    def move_Right(self, steps):
         """
         move_Left (float delay, int steps)
         delay = amount of time delay in milliseconds

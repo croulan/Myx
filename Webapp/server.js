@@ -1,5 +1,5 @@
 var express = require("express");
-var MongoClient = require("mongodb").MongoClient;
+var MongoClient = require("mongodb").MongoClient; 
 var ObjectId = require('mongodb').ObjectID;
 var bodyparse = require("body-parser");
 var PythonShell = require("python-shell");
@@ -82,16 +82,49 @@ app.post('/homepage', function (req, res, next) {
 });
 
 app.put('/editpage', function(req,res,next) {
+    var recipe = req.body.recipe;
+    var temp = {
+            name: recipe.name,
+            author: recipe.author,
+            ingredients: recipe.ingredients,
+            ordered: recipe.ordered
+            }
 
+    console.log(temp)
+
+    /*
+    db.collection("meows").findAndModify(
+        {_id: ObjectId(req.body.recipe._id)},
+        [["_id","asc"]],
+        {$set: {name: "something else"}},
+        {new: true},
+        function(err,obj) { 
+            if (err){ 
+                console.warn(err);
+            } else { 
+                console.log(obj)
+            }
+        });
+        */
+
+    db.collection("meows").update(
+            {_id: ObjectId(req.body.recipe._id)},
+            {$set: {name: recipe.name}}
+            );
+
+    return res.send();
+
+    /*
     db.collection('meows', function(err, recipeCollection){
         var recipeId = req.body.recipe._id;
-        console.log(recipeId);
+
         
         recipeCollection.update({_id: ObjectId(recipeId)}, {w:1}, function(err, result) {
             return res.send();
 
         });
     });
+    */
 
 });
 
