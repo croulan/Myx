@@ -81,6 +81,20 @@ app.post('/homepage', function (req, res, next) {
 
 });
 
+app.put('/editpage', function(req,res,next) {
+
+    db.collection('meows', function(err, recipeCollection){
+        var recipeId = req.body.recipe._id;
+        console.log(recipeId);
+        
+        recipeCollection.update({_id: ObjectId(recipeId)}, {w:1}, function(err, result) {
+            return res.send();
+
+        });
+    });
+
+});
+
 app.listen(3000, function () {
     console.log("Listening on port 3000");
 });

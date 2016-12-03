@@ -1,18 +1,34 @@
-var app = angular.module('MyxApp', ['ngRoute','ngMaterial','ngMessages', 'material.svgAssetsCache']);
+var app = angular.module('MyxApp', ['ngRoute','ngMaterial','ngMessages', 'material.svgAssetsCache'])
+    .service("recipeServ", function() { 
+        var _data = {}
+
+        return {
+            getData: function (){
+                return _data;
+            },
+            setData: function (d) {
+                _data = d;
+            }
+        }
+    });
 
 app.config(function($routeProvider, $locationProvider) {
     $routeProvider
     .when("/", {
+        redirectTo: '/homepage',
+        controller: 'MainCtrl'
+    })
+    .when("/editpage", {
+        templateUrl: 'html/createRecipe.html',
+        controller: 'EditCtrl'
+    })
+    .when("/homepage", {
         templateUrl: 'html/homepage.html',
         controller: 'HomeCtrl'
     })
     .when("/createpage", {
         templateUrl: 'html/createRecipe.html',
         controller: 'RecipeCtrl'
-    })
-    .when("/editpage", {
-        templateUrl: "html/edit.Recipe.html",
-        controller: "EditCtrl"
     })
     .otherwise({
         redirectTo: '/'
@@ -26,15 +42,19 @@ app.config(function($mdThemingProvider) {
     .accentPalette('orange');
 });
 
-app.controller("EditCtrl", function($scope, $route, $routeParams, $location, $http) {
+app.controller("MainCtrl", function($scope, $route, $routeParams, $location, $http) {
     $scope.$route = $route;
     $scope.$location = $location;
     $scope.$routeParams = $routeParams;
 
-    console.log("made it to edit ctrl!");
+    $scope.clearSearch = function () {
+        $scope.searchText= "";
+                    
+    };
 });
 
-app.controller("HomeCtrl", function($scope, $route, $routeParams, $location, $http, $mdDialog) {
+
+app.controller("HomeCtrl", function($scope, recipeServ, $route, $routeParams, $location, $http, $mdDialog) {
     $scope.$route = $route;
     $scope.$location = $location;
     $scope.$routeParams = $routeParams;
@@ -42,12 +62,15 @@ app.controller("HomeCtrl", function($scope, $route, $routeParams, $location, $ht
     $scope.customFullscreen = false;
     
     $scope.removeRecipe = function(recipe) {
-
         $http.put("/homepage/remove", {recipe: recipe}).then(function() {
             getRecipes();
         });
 
     };
+    
+    $scope.editRecipe = function(d) { 
+        recipeServ.setData(d);
+    }
 
     $scope.sendRecipe = function (ev,data) {
         var recipe = data.contents.recipe;
@@ -62,7 +85,6 @@ app.controller("HomeCtrl", function($scope, $route, $routeParams, $location, $ht
             .ariaLabel('Alert Dialog Demo')
             .ok('Got it!')
             .targetEvent(ev)
-
         );
 
         for (var i=0; i<recipe.ingredients.length; i++) {
@@ -90,6 +112,83 @@ app.controller("HomeCtrl", function($scope, $route, $routeParams, $location, $ht
 
     getRecipes();
    
+});
+
+app.controller("EditCtrl", function($scope, recipeServ, $route, $routeParams, $location, $http, $mdDialog) {
+    $scope.$route = $route;
+    $scope.$location = $location;
+    $scope.$routeParams = $routeParams;
+    $scope.customFullscreen = false;
+
+    $scope.recipe = {
+        name: "",
+        ordered: "Not Ordered",
+        ingredients: [],
+        author: "",
+        time: 0
+    }
+
+    $scope.recipe  = recipeServ.getData().contents.recipe;
+    //----------------------------------------------//
+
+    $scope.deleteIngredient = function (index) {
+        $scope.recipe.ingredients.splice(index,1);
+    };
+    
+    $scope.submitNewRecipe = function() {
+        $http.put("/editpage", {recipe: $scope.recipe}).then(function() {
+            $scope.recipe.name = "";
+        });
+        
+    };
+    
+    $scope.showRecipeAmt = function(event, seg) {
+        var inList = false;
+        
+        $mdDialog.show({
+            controller:DialogController,
+            templateUrl: "recipeSlider.html",
+            parent: angular.element(document.getElementsByClassName(".mdl-layout__container")).scope(),
+            targetEvent: event,
+            clickOutsideToClose: true,
+            title: "Amount in mL",
+            ok: "Okay",
+            fullscreen: $scope.customFullscreen
+        })
+        .then(function(amt) {
+            var ingredient = {
+                segment: seg,
+                amount: amt
+            }
+            
+            for(var i=0; i<$scope.recipe.ingredients.length; i++) {
+                if($scope.recipe.ingredients[i].segment == seg) {
+                    $scope.recipe.ingredients[i].amount = amt;
+                    inList = true;
+                }
+            }
+            
+            if(!inList) {
+                $scope.recipe.ingredients.push(ingredient);
+            }
+            
+        });
+    }
+      
+    function DialogController($scope, $mdDialog) {
+        $scope.hide = function() {
+            $mdDialog.hide();
+        };
+        
+        $scope.cancel = function() {
+            $mdDialog.cancel();
+        };
+        
+        $scope.answer = function(answer) {
+            $mdDialog.hide(answer);
+        };
+  }
+
 });
 
 app.controller("RecipeCtrl", function($scope, $route, $routeParams, $location, $http, $mdDialog) {

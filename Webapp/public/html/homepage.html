@@ -30,13 +30,13 @@
                     </a>
                 </div>
                 <div class="mdl-card__menu">
+                    <a class="mdl-button mdl-button--icon mdl-js-button mdl-js-ripple-effect" ng-click="editRecipe(card)"
+                        href="#editpage">
+                        <img src="assets/icons/edit.svg" alt="edit"/>
+                    </a>
                     <button class="mdl-button mdl-button--icon mdl-js-button mdl-js-ripple-effect"
                         ng-click="removeRecipe(card)">
-                        <i class="material-icons">delete</i>
-                    </button>
-                    
-                    <button class="mdl-button mdl-button--icon mdl-js-button mdl-js-ripple-effect">
-                        <i class="material-icons">edit</i>
+                        <img src="assets/icons/delete.svg" alt="delete"/>
                     </button>
                 </div>
             </div>
@@ -53,5 +53,5 @@
 
 
 <a ng-href="#/createpage" class="mdl-button mdl-js-button mdl-button--fab mdl-js-ripple-effect mdl-button--colored">
-    <i class="material-icons">add</i>
+    <img src="assets/icons/add.svg" alt="add" />
 </a>

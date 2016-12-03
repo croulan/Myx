@@ -6,6 +6,7 @@
         <!-- Material Design Lite -->
         <link rel="stylesheet" href="css/material.blue_grey-orange.min.css">
         <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+        <link rel="icon" href="assets/icons"/>
 
         <!-- Mobile Compatabilities -->
         <meta name="mobile-web-app-capable" content="yes" />
@@ -21,19 +22,19 @@
         
         <script type="text/javascript" src="/jquery/dist/jquery.js"></script>
         <script type="text/javascript" src="/material-design-lite/material.min.js"></script>
-        <script type="text/javascript" src="/angular/angular.js"></script>
+        <script type="text/javascript" src="/angular/angular.min.js"></script>
         <script type="text/javascript" src="/angular-route/angular-route.js"></script>
         <script type="text/javascript" src="/angular-material/angular-material.min.js"></script>
         <script type="text/javascript" src="/angular-aria/angular-aria.min.js"></script>
         <script type="text/javascript" src="/angular-animate/angular-animate.min.js"></script>
-        <script src="http://ngmaterial.assets.s3.amazonaws.com/svg-assets-cache.js"></script>
         <script type="text/javascript" src="/angular-messages/angular-messages.min.js"></script>
 
         <script type="text/javascript" src="js/controller.js"></script>
+        <script type="text/javascript" src="js/svg-assets-cache.js"></script>
 
     </head>
 
-    <body ng-cloak>
+    <body ng-cloaki ng-controller="MainCtrl">
         <div class="mdl-layout__container">
             <div class="main-header">
                 <div class="mdl-layout mdl-js-layout mdl-layout--fixed-header">
@@ -45,12 +46,12 @@
                             <div class="mdl-layout-spacer"></div>
                             
                             <div id="searchbar" class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-                                <input class="mdl-textfield__input" ng-model="searchText" type="text" id="search">
+                                <input class="mdl-textfield__input search-text" ng-model="searchText" type="text" id="search">
                                 <label class="mdl-textfield__label" for="search">Search Recipe...</label>
                             </div>
                             <a id="homeButton" class="mdl-button mdl-button--icon mdl-js-button mdl-js-ripple-effect"
-                            ng-href="#/">
-                                <i class="material-icons">home</i>
+                            ng-click="clearSearch()" ng-href="#/">
+                                <img src="assets/icons/home.svg" alt="home" />
                             </a>
                         </div>
                     </header>

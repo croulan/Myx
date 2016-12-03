@@ -139,6 +139,10 @@ md-dialog #recipe-dialog {
     align-items: center;
 }
 
+#save-button { 
+    margin-bottom: 16px;
+}
+
 #recipe-card-toggle-status {
     color:#fff;
     position: absolute;
@@ -180,24 +184,14 @@ md-dialog #recipe-dialog {
 /* CSS of Recipe Dialog Popup */
 md-slider-container {
     height: 80px;
+    width: 250px;
     overflow-y: hidden;
 }
 
-md-dialog {
-    width: 55%;
-    height: 175px;
-}
-
-md-slider .md-slider-wrapper {
-    position: fixed !important;
-    width: 90% !important;
-    height: 50px !important;
+md-slider {
+    width: 210px;
 }
 
 #dialogOK {
-    position: fixed;
-    margin-top:35px;
-    margin-right:22px;
-    right: 0;
-    bottom: 0;
+    float: right;
 }
